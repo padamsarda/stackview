@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AnantSAT Stackview</title>
+<link rel="stylesheet" href="app.css?v=eca52ea">
+</head>
+<body>
+<header class="top">
+  <h1>AnantSAT 3U · Stackview</h1>
+  <span class="branch" id="branch">…</span>
+  <span class="spacer"></span>
+  <a class="btn primary" href="stack.html">3D Stack</a>
+  <a class="btn" href="help.html">Help</a>
+  <a class="btn" href="../">All branches</a>
+  <a class="btn" id="repo" href="#">GitHub</a>
+</header>
+<main class="home">
+  <p class="muted small" id="commit"></p>
+  <div class="grid" id="boards"></div>
+</main>
+<script src="common.js?v=eca52ea"></script>
+<script>
+(async () => {
+  const site = await loadSite();
+  document.getElementById('branch').textContent = site.branch;
+  document.getElementById('repo').href = site.repo_url;
+  document.getElementById('commit').innerHTML =
+    `Built from <a href="${site.repo_url}/commit/${site.commit}">${site.commit.slice(0, 7)}</a> · ` +
+    `${esc(site.commit_subject)} · ${ago(site.built)}`;
+  const grid = document.getElementById('boards');
+  for (const b of site.boards) {
+    const lc = b.last_change;
+    const days = lc ? (Date.now() - new Date(lc.date)) / 864e5 : Infinity;
+    const cls = days < 7 ? 'fresh' : days < 21 ? 'stale' : 'cold';
+    const age = lc ? `${ago(lc.date)} · ${esc(lc.author)}` : 'never pushed';
+    const thumb = b.thumb ? `<img src="${b.thumb}" alt="" loading="lazy">`
+      : `<div class="empty">${b.project ? 'No 3D render' : 'No KiCad project pushed yet'}</div>`;
+    const tags = (b.error ? '<span class="tag bad">export failed</span> ' : '') +
+      (!b.project ? '<span class="tag">not started</span>' : '');
+    const el = document.createElement(b.has_export ? 'a' : 'div');
+    el.className = 'card';
+    if (b.has_export) el.href = `board.html?b=${encodeURIComponent(b.id)}`;
+    el.innerHTML = `<div class="thumb">${thumb}</div><div class="body"><h3>${esc(b.name)}</h3>
+      <div class="age" title="${lc ? esc(lc.subject) : ''}"><span class="dot ${cls}"></span>${age}</div>${tags}</div>`;
+    grid.append(el);
+  }
+})();
+</script>
+</body>
+</html>

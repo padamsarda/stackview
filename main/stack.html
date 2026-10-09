@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Stack · Stackview</title>
+<link rel="stylesheet" href="app.css?v=eca52ea">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body class="board">
+<header class="top">
+  <a class="btn" href="./">←<span class="long"> Boards</span></a>
+  <h1>3D Stack</h1>
+  <span class="branch" id="branch"></span>
+  <span class="spacer"></span>
+  <button class="btn only-phone" id="toggle-side">☰</button>
+  <a class="btn long" href="help.html#the-3d-stack">Help</a>
+</header>
+<div class="workspace">
+  <aside class="side" id="side"></aside>
+  <div class="view" id="view"></div>
+</div>
+<script type="module" src="stack.js?v=eca52ea"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board · Stackview</title>
+<link rel="stylesheet" href="app.css?v=eca52ea">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body class="board">
+<header class="top">
+  <a class="btn" href="./">←<span class="long"> Stack</span></a>
+  <h1 id="title">…</h1>
+  <span class="branch" id="branch"></span>
+  <span class="spacer"></span>
+  <button class="btn only-phone" id="toggle-side">☰</button>
+  <a class="btn" id="history" target="_blank" rel="noopener">History</a>
+  <a class="btn long" href="help.html">Help</a>
+  <button class="btn primary" id="comment">💬<span class="long"> Comment here</span></button>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-tab="sch">Schematic</button>
+  <button data-tab="pcb">PCB</button>
+  <button data-tab="3d">3D</button>
+  <button data-tab="bom">BOM</button>
+  <button data-tab="files">Files</button>
+</nav>
+<div class="workspace" id="workspace"></div>
+<script src="common.js?v=eca52ea"></script>
+<script src="board.js?v=eca52ea"></script>
+</body>
+</html>

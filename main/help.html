@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stackview manual</title><link rel="stylesheet" href="app.css?v=eca52ea"></head>
+<body><header class="top"><a class="btn" href="./">← Stack</a><h1>Manual</h1></header>
+<main class="home manual"><h1 id="stackview-manual">Stackview manual</h1>
+<p>Stackview is a website that shows every PCB of our 3U satellite: schematics, board layouts,<br>3D models and parts lists. It works on a laptop or a phone. <b>You don't need KiCad to use it.</b></p>
+<p><b>Website:</b> <a href="https://padamsarda.github.io/stackview/" target="_blank">https://padamsarda.github.io/stackview/</a></p>
+<p>This manual has three parts. Read only the one you need.</p>
+<ol><li><b>I want to look at a board or review it.</b> Read Part A. Takes 2 minutes, nothing to install.</li><li><b>I design a board and want to share my work.</b> Read Part B. Takes 15 minutes, once.</li><li><b>Something isn't working.</b> Read Part C.</li></ol>
+<hr>
+<h2 id="looking-at-boards-no-installation">Part A: Looking at boards (no installation)</h2>
+<h3 id="open-a-board">Open a board</h3>
+<ol><li>Open the website link above.</li><li>You will see a list of <b>branches</b>. Click <b>main</b>. That is the official, combined design. (Other entries like <code>wip/padam</code> are someone's work in progress.)</li><li>You now see one card per board. The coloured dot shows when it was last updated: green = this week, yellow = within 3 weeks, red = older.</li><li>Click a board.</li></ol>
+<h3 id="the-tabs-at-the-top">The tabs at the top</h3>
+<ul><li><b>Schematic:</b> the circuit drawing.</li><li><b>PCB:</b> the board layout. Use <b>Top</b> / <b>Bottom</b> to flip the board. Tick the boxes under <b>Layers</b> to show or hide copper, silkscreen and other layers.</li><li><b>3D:</b> the finished board in 3D. You can rotate it, zoom and move it (see <i>Rotating the 3D view</i> below).</li><li><b>BOM:</b> the parts list. Type in the filter box to search it.</li><li><b>Files:</b> downloads (PDF of the schematic, parts list as a spreadsheet, and more).</li></ul>
+<h3 id="moving-around">Moving around</h3>
+<table><tr><th></th><th>On a laptop</th><th>On a phone</th></tr><tr><td>Zoom</td><td>Mouse wheel, or the <b>+ / −</b> buttons</td><td>Pinch with two fingers</td></tr><tr><td>Move</td><td>Click and drag</td><td>Drag with one finger</td></tr><tr><td>Start over</td><td><b>Fit</b> button</td><td><b>Fit</b> button</td></tr></table>
+<h3 id="finding-a-part-or-a-signal">Finding a part or a signal</h3>
+<p>Type in the <b>Find</b> box, for example <code>U3</code>, <code>C12</code>, <code>470nF</code> or <code>I2C_A_SDA</code>. Click a result and<br>the view jumps there and puts a pink circle around it.<br>On a phone, tap <b>☰</b> at the top first to open the Find box.</p>
+<h3 id="the-3d-stack">The 3D stack</h3>
+<p>Press <b>3D Stack</b> on the home page to see every PC/104 board stacked together, the way they sit<br>in the satellite, joined by their stack-through headers.</p>
+<ul><li><b>Rotate, zoom and move</b> the same way as in a board's 3D tab (see below).</li><li><b>Change the order:</b> in the side panel, drag a board's row up or down, or use ▲ ▼. The list is top to bottom, the same as the stack.</li><li><b>Hide a board:</b> untick its box.</li><li><b>Nudge a board up or down:</b> use its ↕ slider (±3 mm). Double-click the slider to reset it.</li><li><b>Spacing:</b> <i>Board pitch</i> is the normal distance between boards (15.24 mm). <i>Spread</i> pulls the boards apart so you can see between them.</li><li><b>Click a board's name</b> (in the list or in 3D) to zoom to it.</li><li><b>Copy link</b> gives you a link to exactly this stack, so others see the same order and settings. <b>Reset</b> goes back to the default (folder order).</li></ul>
+<p>Boards are lined up on the PC/104 connector footprint, so a board only appears here once its PCB<br>has that footprint.</p>
+<h3 id="rotating-the-3d-view">Rotating the 3D view</h3>
+<table><tr><th></th><th>Mouse</th><th>Touch</th></tr><tr><td>Rotate</td><td>Drag</td><td>One finger</td></tr><tr><td>Move</td><td>Right-drag, or Shift + drag</td><td>Two fingers</td></tr><tr><td>Zoom</td><td>Wheel (zooms towards the cursor)</td><td>Pinch</td></tr><tr><td>Rotate around a part</td><td>Double-click it</td><td></td></tr></table>
+<p>The buttons at the bottom jump to <b>Top / Bottom / Front / Back / Left / Right</b> views. <b>Fit</b><br>brings everything back into view. On a laptop trackpad, press <b>✥ Pan</b> so a normal drag moves<br>instead of rotating.</p>
+<p>If a part is missing in 3D, a yellow <b>⚠ parts without a 3D model</b> note lists them and the<br>file KiCad couldn't find.</p>
+<h3 id="leaving-a-review-comment">Leaving a review comment</h3>
+<ol><li>Zoom to the spot you want to talk about.</li><li>Press <b>💬 Comment here</b> (on a phone it's just the 💬 button).</li><li>A GitHub page opens with the board name and a link to the exact spot you were looking at already filled in. Write your comment under the line that says so, and press <b>Submit new issue</b>.</li></ol>
+<p>You need a GitHub account that is a member of the team-anant organisation. Ask the team lead<br>if you don't have one.</p>
+<hr>
+<h2 id="sharing-your-kicad-work-designers">Part B: Sharing your KiCad work (designers)</h2>
+<p>You keep working in KiCad exactly as before. When you want others to see your board, you<br><b>double-click one file</b>. A few minutes later your board appears on the website.</p>
+<h3 id="one-time-setup-about-15-minutes">One-time setup (about 15 minutes)</h3>
+<p><b>1. Get access.</b> Make a GitHub account at github.com and ask the team lead to add you to the<br><b>team-anant</b> organisation.</p>
+<p><b>2. Install Git.</b> Download <i>Git for Windows</i> from <a href="https://git-scm.com/download/win" target="_blank">https://git-scm.com/download/win</a> and install<br>it. Click <b>Next</b> on every screen. The default choices are fine.</p>
+<p><b>3. Get a copy of the design folder.</b><br>Pick a place on your laptop, for example your Desktop. Open that folder in File Explorer,<br>right-click an empty area, choose <b>Open Git Bash here</b> (on Windows 11 it may be under<br><i>Show more options</i>), then paste this and press Enter:</p>
+<pre>git clone https://github.com/team-anant/3U-EM-PCB.git</pre>
+<p>A browser window may ask you to sign in to GitHub. Do it. You now have a folder called<br><b>3U-EM-PCB</b> with every board inside it.</p>
+<blockquote>Already have the folder from before (for example through GitHub Desktop)? Skip this step and use that folder.</blockquote>
+<p><b>4. Design your board inside that folder.</b> Your board lives in its own subfolder, for example<br><code>8.BatteryBoard</code> or <code>5.ADCS</code>. Open the <code>.kicad_pro</code> file in there with KiCad.</p>
+<h3 id="every-time-you-want-to-share-10-seconds">Every time you want to share (10 seconds)</h3>
+<ol><li><b>Save</b> in KiCad (both the schematic and the PCB editor).</li><li>Open the <code>3U-EM-PCB</code> folder, then the <code>stackview</code> folder, and <b>double-click <code>sync.bat</code></b>.</li><li>The first time only, it asks:<br><b>Your short name.</b> Type something like <code>padam</code> and press Enter.<br><b>Which folder is yours.</b> Type the number next to your board and press Enter.</li><li>It asks <i>"What changed?"</i>. Type a few words, like <code>added USB connector</code>, or just press Enter.</li><li>It says <b>Done</b>. Wait about 5–10 minutes, then open the website. Your branch is listed as <code>wip/&lt;your name&gt;</code>.</li></ol>
+<p><b>Push unfinished work.</b> That's normal and expected. It's how others can help you early.</p>
+<p><code>sync.bat</code> <b>only ever uploads your own board folder.</b> It can't change anyone else's board, and<br>it doesn't change anything on your laptop.</p>
+<p>To change your name or folder later, run <code>sync.bat</code> and type <b>C</b> when it asks.</p>
+<h3 id="when-your-board-is-ready-to-become-official">When your board is ready to become official</h3>
+<ol><li>Go to <a href="https://github.com/team-anant/3U-EM-PCB" target="_blank">https://github.com/team-anant/3U-EM-PCB</a></li><li>GitHub usually shows a yellow bar: <i>"wip/yourname had recent pushes"</i> → <b>Compare &amp; pull request</b>. If it doesn't: click <b>Pull requests</b> → <b>New pull request</b> → set <i>compare</i> to <code>wip/yourname</code>.</li><li>Write a title like <i>"Battery board ready for review"</i> and press <b>Create pull request</b>.</li><li>Teammates review it and leave comments. When it's approved, it's merged into <b>main</b>.</li></ol>
+<hr>
+<h2 id="when-something-goes-wrong">Part C: When something goes wrong</h2>
+<p><b>My board isn't on the website / still shows the old version.</b><br>Wait 10 minutes and refresh the page. Then check<br><a href="https://github.com/team-anant/3U-EM-PCB/actions:" target="_blank">https://github.com/team-anant/3U-EM-PCB/actions:</a> a yellow dot means it's still building, and a<br>red ✗ means the build failed. Click the red ✗ and send a screenshot to the maintainer.</p>
+<p><b>The board page says "Export failed".</b><br>KiCad couldn't open the file. Open the board in KiCad on your laptop, fix any error it shows,<br>save, and run <code>sync.bat</code> again.</p>
+<p><b><code>sync.bat</code> says "Nothing new since your last sync".</b><br>You haven't saved anything new. Save in KiCad and run it again.</p>
+<p><b><code>sync.bat</code> says "Git is not installed".</b><br>Do step 2 of the one-time setup, then restart your laptop.</p>
+<p><b><code>sync.bat</code> asks for a GitHub login, or says "permission denied".</b><br>Sign in when the browser opens. If it still fails, ask the team lead whether you've been added to<br>team-anant.</p>
+<p><b><code>sync.bat</code> says "KiCad still has files open".</b><br>This is just a reminder. Make sure you saved, then it's fine.</p>
+<p><b>The 3D view is blank or slow.</b><br>Use the <b>Top</b> / <b>Bottom</b> pictures instead. The interactive model needs a reasonably new phone<br>and Wi-Fi.</p>
+<hr>
+<h2 id="words-you-might-hear">Words you might hear</h2>
+<table><tr><th>Word</th><th>Meaning</th></tr><tr><td><b>Repository (repo)</b></td><td>The shared online folder with all our designs (<code>3U-EM-PCB</code> on GitHub).</td></tr><tr><td><b>Branch</b></td><td>A separate copy of the designs. <b>main</b> is the official one; <code>wip/name</code> is yours to experiment in.</td></tr><tr><td><b>Commit</b></td><td>One saved snapshot of changes. <code>sync.bat</code> makes one for you each time.</td></tr><tr><td><b>Pull request (PR)</b></td><td>A request to copy your branch into <b>main</b>, with review comments.</td></tr><tr><td><b>Issue</b></td><td>A comment thread on GitHub. The 💬 button creates one.</td></tr><tr><td><b>BOM</b></td><td>Bill of materials: the list of parts to buy.</td></tr></table>
+<hr>
+<h2 id="for-the-maintainer">For the maintainer</h2>
+<ul><li>Board list: <code>stackview/boards.toml</code>. Add a <code>[[board]]</code> block for a new board.</li><li>How it works and one-time hosting setup: <code>stackview/README.md</code>.</li><li>The website is rebuilt on every push to any branch. A branch's preview is removed when the branch is deleted.</li></ul></main></body></html>
