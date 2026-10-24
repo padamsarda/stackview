@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stackview branches</title>
+<link rel="stylesheet" href="main/app.css">
+</head>
+<body>
+<header class="top"><h1>AnantSAT 3U · Stackview</h1><span class="spacer"></span><a class="btn" href="main/help.html">Help / manual</a></header>
+<main class="home">
+  <p class="muted">Every branch gets its own preview. <b>main</b> is the integrated design; <code>wip/…</code> branches are work in progress.</p>
+  <div class="grid" id="list"></div>
+</main>
+<script>
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+fetch('branches.json', { cache: 'no-cache' }).then(r => r.json()).then(list => {
+  document.getElementById('list').innerHTML = list.map(b => `
+    <a class="card" href="${encodeURIComponent(b.slug)}/"><div class="body">
+      <h3>${esc(b.branch)}</h3>
+      <div class="small muted">${esc(b.subject)}</div>
+      <div class="small muted">${b.commit.slice(0, 7)} · built ${new Date(b.built).toLocaleString()}</div>
+    </div></a>`).join('');
+});
+</script>
+</body>
+</html>

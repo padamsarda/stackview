@@ -1,0 +1,30 @@
+[
+ {
+  "branch": "main",
+  "slug": "main",
+  "commit": "4309597bc960310abdcadfe8651cdd60eb02631e",
+  "subject": "Merge pull request #4 from team-anant/codex/adcs-final-em",
+  "built": "2026-10-24T02:21:42+00:00"
+ },
+ {
+  "branch": "codex/adcs-final-em",
+  "slug": "codex-adcs-final-em",
+  "commit": "97018c7f26d0316789d258c58d64579a9c39f79e",
+  "subject": "ADCS: release final EM fabrication files and Stackview previews",
+  "built": "2026-10-23T01:12:31+00:00"
+ },
+ {
+  "branch": "codex/beacon-four-layer-routing",
+  "slug": "codex-beacon-four-layer-routing",
+  "commit": "a886c3be70531723a594d099602e617a8e1bb580",
+  "subject": "Beacon: add local torquer control and polish four-layer PCB",
+  "built": "2026-10-22T17:37:06+00:00"
+ },
+ {
+  "branch": "codex/eps-beacon-4layer-t-magnetorquers",
+  "slug": "codex-eps-beacon-4layer-t-magnetorquers",
+  "commit": "d10bc096515b6f91fd840c0c1b2dc8c6d5531cda",
+  "subject": "Beacon: rename EPS project and retain routing refinements",
+  "built": "2026-10-22T18:10:27+00:00"
+ }
+]
