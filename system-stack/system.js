@@ -68,7 +68,20 @@ function singleStandardPCB(model){
   });
 }
 async function board(id,src){const b=boards[src];if(!b?.glb)throw Error(src+' unavailable');let m=await v.load(b.glb);if(src==='pc104')singleStandardPCB(m);m.position.set(-mm(b.stack.x),0,-mm(b.stack.y));const pivot=new THREE.Group();pivot.rotation.y=-b.stack.rot*Math.PI/180;pivot.add(m);pivot.name='PCB model';groups[id].add(pivot);}
-async function cad(id,file){const m=await v.load('assembly/'+(file==='camera'?'camera-opt':file)+'.glb'),b=new THREE.Box3().setFromObject(m),c=b.getCenter(new THREE.Vector3());m.position.set(mm(43)-c.x,id==='mount'?-b.max.y:-b.min.y+mm(id==='wheels'?3:0),mm(-36.83)-c.z);m.name='Imported CAD';groups[id].add(m);if(id==='camera')groups[id].visible=true;groups[id].userData.cadBounds={min:b.min.toArray(),max:b.max.toArray()};}
+async function cad(id,file){
+  const m=await v.load('assembly/'+(file==='camera'?'camera-opt':file)+'.glb');
+  // Camera source PC104 edge lies along -Z. Rotate it onto the stack's -X edge.
+  // The source mounting datum is X=-36.79717, Z=-42.92649 mm.
+  // The other three centers follow the same asymmetric PC104 mounting pattern.
+  if(id==='camera')m.rotation.y=Math.PI/2;
+  m.updateMatrixWorld(true);
+  const b=new THREE.Box3().setFromObject(m),c=b.getCenter(new THREE.Vector3());
+  if(id==='camera')m.position.set(mm(42.92649),-b.min.y,mm(-36.79717));
+  else m.position.set(mm(43)-c.x,id==='mount'?-b.max.y:-b.min.y+mm(id==='wheels'?3:0),mm(-36.83)-c.z);
+  m.name='Imported CAD';groups[id].add(m);
+  if(id==='camera')groups[id].visible=true;
+  groups[id].userData.cadBounds={min:b.min.toArray(),max:b.max.toArray()};
+}
 const jobs=[...['obc','payload','adcs','battery'].map(id=>[id,()=>board(id,id)]),['beacon',()=>board('beacon','beacon-eps')],...['camera','wheels'].map(id=>[id,()=>cad(id,id)]),['power',()=>board('power','pc104')],['wheels-standard',()=>board('wheels','pc104')],['css',async()=>{const m=await v.load(boards.css.glb),b=new THREE.Box3().setFromObject(m);m.position.copy(b.getCenter(new THREE.Vector3()).negate());for(let i=0;i<4;i++){let g=new THREE.Group(),p=new THREE.Group();p.add(m.clone(true));p.rotation.order="YXZ";p.rotation.x=Math.PI/2;p.rotation.y=Math.PI/2-i*Math.PI/2;box(g,[6,4,4],[0,-5,0],0xe3dfd0);g.name='CSS '+(i+1);g.userData.connector=p;g.userData.connectorPoint=P([175.435, -2,87.345]).add(m.position);g.add(p);groups.css.add(g);}}]];
 
 /* Compact bottom-to-top placement. Measure visible meshes, including instances,
