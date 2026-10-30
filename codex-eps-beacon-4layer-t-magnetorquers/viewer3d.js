@@ -24,7 +24,8 @@ const VIEWS = {
   right:  [new THREE.Vector3(1, 0.0004, 0)],
 };
 
-export function createViewer(container) {
+export function createViewer(container, options = {}) {
+  const stackMode = options.stack ?? /(?:stack|assembly|system)\.html$/.test(location.pathname);
   container.classList.add('v3d');
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: false });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -39,7 +40,7 @@ export function createViewer(container) {
 
   const scene = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = stackMode ? null : pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.add(new THREE.HemisphereLight(0xffffff, 0x334455, 0.6));
   const sun = new THREE.DirectionalLight(0xffffff, 1.2);
   sun.position.set(0.3, 1, 0.5);
@@ -51,6 +52,24 @@ export function createViewer(container) {
   const camera = new THREE.PerspectiveCamera(35, 1, 0.0005, 50);
   camera.position.set(0.15, 0.2, 0.25);
 
+  let wheelGoal = null, wheelAnchor = null, lastFrame = null;
+  // Capture wheel input before OrbitControls: native wheel dolly is discrete.
+  function onWheel(e) {
+    if (!stackMode || !controls.enabled || !controls.enableZoom) return;
+    e.preventDefault(); e.stopImmediatePropagation(); anim = null;
+    const pixels = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? container.clientHeight : 1);
+    const delta = THREE.MathUtils.clamp(pixels, -120, 120);
+    const distance = camera.position.distanceTo(controls.target);
+    wheelGoal = THREE.MathUtils.clamp((wheelGoal ?? distance) * Math.exp(delta * .0018), controls.minDistance, controls.maxDistance);
+    const rect = renderer.domElement.getBoundingClientRect();
+    const point = new THREE.Vector3((e.clientX-rect.left)/rect.width*2-1, 1-(e.clientY-rect.top)/rect.height*2, .5).unproject(camera);
+    const direction = point.sub(camera.position).normalize();
+    const normal = camera.getWorldDirection(new THREE.Vector3());
+    const depth = controls.target.clone().sub(camera.position).dot(normal) / direction.dot(normal);
+    wheelAnchor = camera.position.clone().addScaledVector(direction, depth);
+    dirty = true;
+  }
+  renderer.domElement.addEventListener('wheel', onWheel, {capture:true, passive:false});
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.12;
@@ -58,6 +77,8 @@ export function createViewer(container) {
   controls.zoomToCursor = true;
   controls.rotateSpeed = 0.9;
   controls.panSpeed = 1.0;
+  controls.zoomSpeed = stackMode ? 1.35 : 1;
+  controls.addEventListener('start', () => { anim = null; wheelGoal = null; });
   controls.minPolarAngle = 0;
   controls.maxPolarAngle = Math.PI;      // allow looking at the underside
   controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.PAN };
@@ -88,11 +109,46 @@ export function createViewer(container) {
   ro.observe(container);
   resize();
 
+  const diffuseCache = new WeakMap();
+  function diffuseMaterial(source) {
+    if (source.userData.stackDiffuse || (!source.isMeshStandardMaterial && !source.isMeshPhongMaterial)) return source;
+    if (diffuseCache.has(source)) return diffuseCache.get(source);
+    const color = source.color.clone();
+    // PCB copper is muted in stack views; individual board views retain it.
+    if (color.r > .4 && color.g > .25 && color.b < color.g * .55) color.set(0x9b9e94);
+    const opaque = source.opacity >= .75;
+    const material = new THREE.MeshLambertMaterial({color, map:source.map, side:THREE.DoubleSide,
+      transparent:opaque ? false : source.transparent, opacity:opaque ? 1 : source.opacity,
+      alphaTest:source.alphaTest, vertexColors:source.vertexColors, depthWrite:opaque ? true : source.depthWrite});
+    material.name=source.name; material.userData.stackDiffuse=true;
+    // KiCad's exposed-copper layer creates dense gold flicker at stack scale.
+    // Hide that layer here; retain component pins and the original board view.
+    const c=source.color;
+    if(Math.abs(c.r-.7)<.002 && Math.abs(c.g-.61)<.002 && c.b<.002 && source.metalness>.99) material.visible=false;
+    diffuseCache.set(source,material); return material;
+  }
+  function prepareStack(root) {
+    if (!stackMode) return;
+    root.traverse(o => {if(o.isMesh) o.material=Array.isArray(o.material)?o.material.map(diffuseMaterial):diffuseMaterial(o.material);});
+  }
+  function stepWheel(t) {
+    const dt=lastFrame===null?16:Math.min(64,t-lastFrame); lastFrame=t;
+    if(wheelGoal===null)return;
+    const distance=camera.position.distanceTo(controls.target);
+    const next=THREE.MathUtils.lerp(distance,wheelGoal,1-Math.exp(-dt/65));
+    const ratio=next/distance;
+    const shift=wheelAnchor.clone().sub(controls.target).multiplyScalar(1-ratio);
+    camera.position.sub(controls.target).multiplyScalar(ratio).add(controls.target).add(shift);
+    controls.target.add(shift); dirty=true;
+    if(Math.abs(next-wheelGoal)<Math.max(1e-6,wheelGoal*.0001))wheelGoal=null;
+  }
   function loop(t) {
     if (!alive) return;
     requestAnimationFrame(loop);
     if (anim) stepAnim(t);
+    stepWheel(t);
     if (controls.update() || dirty) {
+      prepareStack(scene);
       renderer.render(scene, camera);
       labels.render(scene, camera);
       renderListeners.forEach(fn => fn());
@@ -103,6 +159,7 @@ export function createViewer(container) {
 
   // smooth camera moves (fit / views / double-click focus)
   function animateTo(target, position, up = camera.up.clone(), ms = 450) {
+    wheelGoal = null;
     anim = { t0: null, ms, fromT: controls.target.clone(), fromP: camera.position.clone(), toT: target, toP: position, up };
   }
   function stepAnim(t) {
@@ -127,8 +184,11 @@ export function createViewer(container) {
     const sphere = box.getBoundingSphere(new THREE.Sphere());
     const d = (dir || camera.position.clone().sub(controls.target)).clone().normalize();
     const fov = THREE.MathUtils.degToRad(camera.fov);
-    const dist = sphere.radius / Math.sin(Math.min(fov, fov * camera.aspect) / 2) * 1.08;
+    const horizontalFov = 2 * Math.atan(Math.tan(fov / 2) * camera.aspect);
+    const dist = sphere.radius / Math.sin(Math.min(fov, horizontalFov) / 2) * 1.12;
     camera.near = dist / 200; camera.far = dist * 20; camera.updateProjectionMatrix();
+    wheelGoal = null;
+    controls.minDistance = Math.max(.001, dist * .015); controls.maxDistance = dist * 25;
     const pos = sphere.center.clone().addScaledVector(d, dist);
     if (animate) animateTo(sphere.center.clone(), pos);
     else { controls.target.copy(sphere.center); camera.position.copy(pos); dirty = true; }
@@ -163,12 +223,13 @@ export function createViewer(container) {
         for (const material of materials) material.side = THREE.DoubleSide;
       }
     });
+    prepareStack(root);
     return root;
   }
 
   function dispose() {
     renderListeners.clear();
-    alive = false; ro.disconnect(); controls.dispose(); renderer.dispose(); draco.dispose(); pmrem.dispose();
+    alive = false; renderer.domElement.removeEventListener('wheel', onWheel, true); ro.disconnect(); controls.dispose(); renderer.dispose(); draco.dispose(); pmrem.dispose();
     container.innerHTML = '';
   }
 
@@ -230,3 +291,4 @@ export function toolbar(viewer, getFitObjs = () => undefined) {
     · <b>✥ Pan</b> = one finger moves<br><b>Trackpad</b>: turn on <b>✥ Pan</b> to move with a normal drag.`;
   return [bar, help];
 }
+

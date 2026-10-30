@@ -290,7 +290,7 @@ function show3d() {
       <ul>${meta.missing_models.map(m => `<li><b>${esc(m.refs.join(', '))}</b><br><code>${esc(m.path)}</code></li>`).join('')}</ul></details>`));
   }
   if (!f.glb) { ph.querySelector('span').textContent = '3D model export failed, see Files tab.'; return; }
-  import('./viewer3d.js?v=0210c5c').then(async ({ createViewer, toolbar, addPlaceholders }) => {
+  import('./viewer3d.js?v=ruler-1da6f2e').then(async ({ createViewer, toolbar, addPlaceholders }) => {
     if (!view.isConnected) return;
     const v = v3d = createViewer(view);
     view.append(...toolbar(v));

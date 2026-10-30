@@ -114,6 +114,18 @@ pre.err { white-space: pre-wrap; font-size: 12px; max-height: 300px; overflow: a
 @media (min-width: 761px) { .only-phone { display: none !important; } }
 
 /* ---------- manual ---------- */
+/* Ruler lives in screen space so its text and endpoints stay legible when zoomed or mirrored. */
+.ruler-panel { position: absolute; top: 12px; left: 12px; z-index: 1002; max-width: min(390px, calc(100% - 24px));
+  padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.ruler-panel output, .ruler-hint { display: block; margin-top: 6px; font-size: 12px; }
+.ruler-panel [hidden] { display: none; }
+.ruler-panel output { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ruler-hint { color: var(--muted); }
+.ruler-overlay { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1001; pointer-events: none; overflow: hidden; }
+.ruler-overlay line { stroke: #ffca28; stroke-width: 2; stroke-dasharray: 6 3; filter: drop-shadow(0 1px 1px #000); }
+.ruler-overlay circle { fill: #ffca28; stroke: #171d26; stroke-width: 2; }
+.ruler-active .scroller, .ruler-active canvas { cursor: crosshair; }
+
 main.manual { max-width: 780px; }
 .manual h1 { font-size: 26px; } .manual h2 { margin-top: 34px; font-size: 21px; } .manual h3 { margin-top: 24px; font-size: 17px; }
 .manual table { border-collapse: collapse; width: 100%; margin: 10px 0; background: var(--panel); font-size: 14px; }

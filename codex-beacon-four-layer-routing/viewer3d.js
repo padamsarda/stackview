@@ -90,6 +90,7 @@ export function createViewer(container, options = {}) {
   loader.setDRACOLoader(draco);
 
   let dirty = true, alive = true, anim = null;
+  const renderListeners = new Set();
   const requestRender = () => { dirty = true; };
   controls.addEventListener('change', requestRender);
 
@@ -150,6 +151,7 @@ export function createViewer(container, options = {}) {
       prepareStack(scene);
       renderer.render(scene, camera);
       labels.render(scene, camera);
+      renderListeners.forEach(fn => fn());
       dirty = false;
     }
   }
@@ -226,11 +228,13 @@ export function createViewer(container, options = {}) {
   }
 
   function dispose() {
+    renderListeners.clear();
     alive = false; renderer.domElement.removeEventListener('wheel', onWheel, true); ro.disconnect(); controls.dispose(); renderer.dispose(); draco.dispose(); pmrem.dispose();
     container.innerHTML = '';
   }
 
-  return { THREE, scene, camera, controls, renderer, load, fit, setView, setPanMode, requestRender, dispose, boundsOf };
+  return { THREE, scene, camera, controls, renderer, load, fit, setView, setPanMode, requestRender, dispose, boundsOf,
+    onRender(fn) { renderListeners.add(fn); return () => renderListeners.delete(fn); } };
 }
 
 /* ---------- stand-ins for parts whose 3D model file is missing ---------- */
@@ -287,3 +291,4 @@ export function toolbar(viewer, getFitObjs = () => undefined) {
     · <b>✥ Pan</b> = one finger moves<br><b>Trackpad</b>: turn on <b>✥ Pan</b> to move with a normal drag.`;
   return [bar, help];
 }
+

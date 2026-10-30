@@ -4,7 +4,7 @@ const MARGIN = 24;
 const $ = (sel, el = document) => el.querySelector(sel);
 const h = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; };
 
-let site, board, meta, base, tab, viewer, v3d;
+let site, board, meta, base, tab, viewer, v3d, ruler;
 const state = { sheet: 0, pcbSide: 'top', layersOn: null, bomVariant: null };
 
 /* ---------- pan / zoom over stacked <img> layers ---------- */
@@ -45,6 +45,7 @@ class PanZoom {
     const padX = Math.max(MARGIN, Math.floor((this.view.clientWidth - w) / 2) - 2);
     const padY = Math.max(MARGIN, Math.floor((this.view.clientHeight - w / this.aspect) / 2) - 2);
     this.stage.style.margin = `${padY}px ${padX}px`;
+    this.onTransform?.();
   }
   fit() { this.zoom = 1; this.apply(); this.scroller.scrollTo(0, 0); }
   // fraction (0..1) of the stage under a client point, in visual (on-screen) space
@@ -120,6 +121,7 @@ class PanZoom {
 const isPhone = () => matchMedia('(max-width: 760px)').matches;
 
 function clearWorkspace() {
+  if (ruler) { ruler.dispose(); ruler = null; }
   if (v3d) { v3d.dispose(); v3d = null; }
   const ws = $('#workspace'); ws.innerHTML = '';
   return ws;
@@ -249,6 +251,27 @@ function showPcb(restore) {
   viewer.setContent(meta.layers[0].viewBox, state.pcbSide === 'bottom');
   paint();
   if (restore?.x != null) viewer.focus(restore.x, restore.y, restore.z || 4);
+  const pv = viewer;
+  ruler = createPcbRuler(view, {
+    surface: pv.scroller,
+    pick(cx, cy) {
+      let [x, y] = pv.fracAt(cx, cy);
+      if (x < 0 || x > 1 || y < 0 || y > 1) return null;
+      if (pv.mirror) x = 1 - x;
+      return [pv.vb[0] + x * pv.vb[2], pv.vb[1] + y * pv.vb[3]];
+    },
+    project([x, y]) {
+      const r = pv.stage.getBoundingClientRect(), vr = view.getBoundingClientRect();
+      let fx = (x - pv.vb[0]) / pv.vb[2];
+      if (pv.mirror) fx = 1 - fx;
+      return [r.left - vr.left + fx * r.width, r.top - vr.top + (y - pv.vb[1]) / pv.vb[3] * r.height];
+    },
+    subscribe(fn) {
+      pv.onTransform = fn;
+      pv.scroller.addEventListener('scroll', fn);
+      return () => { pv.onTransform = null; pv.scroller.removeEventListener('scroll', fn); };
+    },
+  });
 }
 
 function show3d() {
@@ -267,18 +290,45 @@ function show3d() {
       <ul>${meta.missing_models.map(m => `<li><b>${esc(m.refs.join(', '))}</b><br><code>${esc(m.path)}</code></li>`).join('')}</ul></details>`));
   }
   if (!f.glb) { ph.querySelector('span').textContent = '3D model export failed, see Files tab.'; return; }
-  import('./viewer3d.js?v=a886c3b').then(async ({ createViewer, toolbar, addPlaceholders }) => {
+  import('./viewer3d.js?v=ruler-71567d2').then(async ({ createViewer, toolbar, addPlaceholders }) => {
     if (!view.isConnected) return;
     const v = v3d = createViewer(view);
     view.append(...toolbar(v));
     try {
       const model = await v.load(`${base}/${f.glb}?v=${meta.source_hash?.slice(-12) || ''}`,
         p => { ph.querySelector('span').textContent = `Loading 3D model… ${Math.round(p * 100)}%`; });
+      if (!view.isConnected) return;
       model.userData.fit = true;
       addPlaceholders(model, meta.placeholders, meta.stack?.thickness || 1.6);
       v.scene.add(model);
       v.fit(undefined, new v.THREE.Vector3(0.9, 1.1, 1.3), false);
       ph.remove();
+      const { THREE } = v;
+      const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+      const direction = new THREE.Vector3();
+      const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0));
+      const thickness = (meta.stack?.thickness || 1.6) / 1000;
+      const height = () => v.camera.position.y >= thickness / 2 ? thickness : 0;
+      ruler = createPcbRuler(view, {
+        surface: v.renderer.domElement,
+        pick(cx, cy) {
+          const r = v.renderer.domElement.getBoundingClientRect();
+          if (cx < r.left || cx > r.right || cy < r.top || cy > r.bottom) return null;
+          ndc.set((cx - r.left) / r.width * 2 - 1, -(cy - r.top) / r.height * 2 + 1);
+          ray.setFromCamera(ndc, v.camera);
+          // A board viewed edge-on has no usable 2D picking area.
+          if (Math.abs(v.camera.getWorldDirection(direction).y) < 0.02) return null;
+          plane.constant = -height();
+          const p = ray.ray.intersectPlane(plane, new THREE.Vector3());
+          return p ? [p.x * 1000, p.z * 1000] : null;
+        },
+        project([x, y]) {
+          const p = new THREE.Vector3(x / 1000, height(), y / 1000).project(v.camera);
+          if (p.z < -1 || p.z > 1) return null;
+          return [(p.x + 1) / 2 * view.clientWidth, (1 - p.y) / 2 * view.clientHeight];
+        },
+        subscribe: fn => v.onRender(fn),
+      });
     } catch (e) {
       ph.querySelector('span').textContent = 'Could not load the 3D model: ' + e.message;
     }

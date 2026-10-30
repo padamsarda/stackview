@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stackview manual</title><link rel="stylesheet" href="app.css?v=a886c3b"></head>
+<title>Stackview manual</title><link rel="stylesheet" href="app.css"></head>
 <body><header class="top"><a class="btn" href="./">← Stack</a><h1>Manual</h1></header>
 <main class="home manual"><h1 id="stackview-manual">Stackview manual</h1>
 <p>Stackview is a website that shows every PCB of our 3U satellite: schematics, board layouts,<br>3D models and parts lists. It works on a laptop or a phone. <b>You don't need KiCad to use it.</b></p>
@@ -15,6 +15,8 @@
 <ul><li><b>Schematic:</b> the circuit drawing.</li><li><b>PCB:</b> the board layout. Use <b>Top</b> / <b>Bottom</b> to flip the board. Tick the boxes under <b>Layers</b> to show or hide copper, silkscreen and other layers.</li><li><b>3D:</b> the finished board in 3D. You can rotate it, zoom and move it (see <i>Rotating the 3D view</i> below).</li><li><b>BOM:</b> the parts list. Type in the filter box to search it.</li><li><b>Files:</b> downloads (PDF of the schematic, parts list as a spreadsheet, and more).</li></ul>
 <h3 id="moving-around">Moving around</h3>
 <table><tr><th></th><th>On a laptop</th><th>On a phone</th></tr><tr><td>Zoom</td><td>Mouse wheel, or the <b>+ / −</b> buttons</td><td>Pinch with two fingers</td></tr><tr><td>Move</td><td>Click and drag</td><td>Drag with one finger</td></tr><tr><td>Start over</td><td><b>Fit</b> button</td><td><b>Fit</b> button</td></tr></table>
+<h3 id="measuring-a-board">Measuring a board</h3>
+<p>In a board's <b>PCB</b> or <b>3D</b> tab, press <b>Ruler</b>, then click or tap two points.<br>The readout shows the straight-line distance and <b>ΔX / ΔY</b>, all in <b>mm</b>, with a yellow line<br>between the points. In 3D this measures in the flat PCB plane; component height is ignored.<br>Use <b>Top</b> or <b>Bottom</b> for precise picking; an edge-on view cannot be measured.<br>Drag to move or rotate and zoom as usual. Click again to start a new measurement,<br>press <b>Clear</b> to erase it, or press <b>Ruler</b> / <b>Esc</b> to exit.<br>Measurements use the selected cursor positions without snapping to pads.</p>
 <h3 id="finding-a-part-or-a-signal">Finding a part or a signal</h3>
 <p>Type in the <b>Find</b> box, for example <code>U3</code>, <code>C12</code>, <code>470nF</code> or <code>I2C_A_SDA</code>. Click a result and<br>the view jumps there and puts a pink circle around it.<br>On a phone, tap <b>☰</b> at the top first to open the Find box.</p>
 <h3 id="the-3d-stack">The 3D stack</h3>
