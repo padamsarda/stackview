@@ -4085,11 +4085,11 @@
    ],
    "last_change": {
     "date": "2026-10-30T09:00:56.670537+00:00",
-    "subject": "Saved rail-controller layout",
-    "author": "Padam (saved layout)",
-    "sha": "0210c5cc7f03818fdf97b4de676b575e98b7280b"
+    "subject": "Rail controller and module placement published",
+    "author": "Padam Sarda",
+    "sha": "ec3654e3cf8189450b3c9ce92609588fc8376964"
    },
-   "source_pending": true
+   "source_pending": false
   }
  ],
  "module_placement_version": "module-fit-20261030a"
