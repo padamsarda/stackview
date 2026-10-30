@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="app.css"><link rel="stylesheet" href="assembly.css?v=cases5"><title>System assembly · Stackview</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head><body class="board assembly">
+<header class="top"><a class="btn" href="./">← Cases</a><h1 id="title">System stack</h1><span class="branch" id="case-name"></span><span class="spacer"></span><a class="btn long" href="../main/">Boards</a><button class="btn only-phone" id="toggle-side" aria-controls="side" aria-expanded="false" aria-label="Open assembly controls">☰ Controls</button></header>
+<div class="workspace"><aside class="side collapsed" id="side"><div class="drawer-head"><b>Assembly controls</b><button class="btn" id="close-controls" aria-label="Close assembly controls">✕</button></div><div id="controls-body"></div></aside>
+<div class="view" id="view"><div id="loading" role="status" aria-live="polite">Loading assembly models…</div>
+<div class="assembly-actions"><button id="focus-stack">Stack focus</button><button id="fit-all">Fit all</button><button id="flip" aria-pressed="false">↕ Flip stack</button><button id="labels-toggle" aria-pressed="true">Labels</button></div>
+<div class="touch-hint">Drag to rotate · pinch to zoom · Fit all for deployed wings</div></div></div>
+<script type="module" src="assembly.js?v=cases5"></script></body></html>
