@@ -4037,25 +4037,39 @@
    "in_stack": false,
    "export_bom": false,
    "has_export": true,
+   "error": null,
    "glb": "boards/rail-controller/board.glb",
    "thumb": "boards/rail-controller/top.png",
    "stack": null,
    "warnings": [
-    "Design preview: 9 DRC errors, 16 DRC warnings; no unrouted connections; schematic/PCB mismatch: missing R8. Saved schematic has 8 ERC errors and 1 warning. Not a fabrication release."
+    "Publication checks: 0 DRC errors, 25 PCB warnings, 0 unrouted connections, 0 schematic mismatches; 0 ERC errors and 1 schematic warnings."
    ],
    "missing_models": [
+    {
+     "path": "${KICAD10_3DMODEL_DIR}/Connector_Molex.3dshapes/Molex_PicoBlade_53047-0410_1x04_P1.25mm_Vertical.step",
+     "refs": [
+      "J6"
+     ]
+    },
     {
      "path": "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/HTSOP-8-1EP_3.9x4.9mm_Pitch1.27mm.step",
      "refs": [
       "U1"
+     ]
+    },
+    {
+     "path": "${KICAD10_3DMODEL_DIR}/TerminalBlock_RND.3dshapes/TerminalBlock_RND_205-00001_1x02_P5.00mm_Horizontal.step",
+     "refs": [
+      "J4",
+      "J9"
      ]
     }
    ],
    "placeholders": [
     {
      "ref": "U1",
-     "x": 68.23,
-     "y": 59.68,
+     "x": 119.726,
+     "y": 48.86,
      "rot": 0,
      "side": "top",
      "cx": 0,
@@ -4063,15 +4077,50 @@
      "w": 7.5,
      "d": 5.58,
      "h": 4
+    },
+    {
+     "ref": "J6",
+     "x": 108.458,
+     "y": 61.411,
+     "rot": 180,
+     "side": "top",
+     "cx": 1.875,
+     "cy": -0.45500000000000007,
+     "w": 7.75,
+     "d": 4.21,
+     "h": 4
+    },
+    {
+     "ref": "J4",
+     "x": 134.62,
+     "y": 50.8,
+     "rot": -90,
+     "side": "top",
+     "cx": 2.5,
+     "cy": -0.3849999999999998,
+     "w": 11,
+     "d": 10.23,
+     "h": 4
+    },
+    {
+     "ref": "J9",
+     "x": 97.4775,
+     "y": 55.88,
+     "rot": 90,
+     "side": "top",
+     "cx": 2.5,
+     "cy": -0.3849999999999998,
+     "w": 11,
+     "d": 10.23,
+     "h": 4
     }
    ],
+   "source_pending": true,
    "last_change": {
-    "date": "2026-10-30T09:00:56.670537+00:00",
-    "subject": "Rail controller and module placement published",
+    "date": "2026-10-30T18:04:52.396748+00:00",
     "author": "Padam Sarda",
-    "sha": "0c2d2ca1dbdcf044137615713dd953c13462450e"
-   },
-   "source_pending": false
+    "subject": "Latest saved rail-controller revision"
+   }
   }
  ],
  "module_placement_version": "module-fit-20261030a"
