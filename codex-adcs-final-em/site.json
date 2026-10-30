@@ -26,7 +26,7 @@
     "ref": "J1",
     "x": 182.955,
     "y": 142.315,
-    "rot": 0.0,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -576,7 +576,7 @@
     "ref": "J1",
     "x": 50.525,
     "y": 139.065,
-    "rot": 0.0,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -1124,9 +1124,9 @@
    "glb": "boards/obc/board.glb",
    "stack": {
     "ref": "J7",
-    "x": 100.0,
-    "y": 150.0,
-    "rot": 0.0,
+    "x": 100,
+    "y": 150,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -1676,7 +1676,7 @@
     "ref": "J1",
     "x": 50.525,
     "y": 139.065,
-    "rot": 0.0,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -2227,7 +2227,7 @@
     "ref": "J6",
     "x": 175.1,
     "y": 111.08,
-    "rot": 0.0,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -2774,49 +2774,49 @@
      "ref": "J4",
      "x": 257.3,
      "y": 102.4,
-     "rot": 180.0,
+     "rot": 180,
      "side": "top",
      "cx": 5.813750000000001,
-     "cy": 36.0,
+     "cy": 36,
      "w": 20.3725,
-     "d": 72.0,
-     "h": 4.0
+     "d": 72,
+     "h": 4
     },
     {
      "ref": "U5",
      "x": 231.4,
      "y": 47.9,
-     "rot": 90.0,
+     "rot": 90,
      "side": "top",
-     "cx": 0.0,
-     "cy": 0.0,
+     "cx": 0,
+     "cy": 0,
      "w": 18.5,
      "d": 16.5,
-     "h": 4.0
+     "h": 4
     },
     {
      "ref": "J3",
      "x": 257.2875,
      "y": 103.0125,
-     "rot": -90.0,
+     "rot": -90,
      "side": "top",
-     "cx": 8.0,
+     "cx": 8,
      "cy": 34.4,
-     "w": 16.0,
+     "w": 16,
      "d": 75.2,
-     "h": 4.0
+     "h": 4
     },
     {
      "ref": "J5",
      "x": 207.055,
      "y": 94.175,
-     "rot": -90.0,
+     "rot": -90,
      "side": "bottom",
      "cx": 0.625,
      "cy": 0.45500000000000007,
      "w": 5.25,
      "d": 4.21,
-     "h": 4.0
+     "h": 4
     }
    ]
   },
@@ -2839,9 +2839,9 @@
    "glb": "boards/adcs/board.glb",
    "stack": {
     "ref": "J7",
-    "x": 100.0,
-    "y": 150.0,
-    "rot": 0.0,
+    "x": 100,
+    "y": 150,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -3417,7 +3417,7 @@
     "ref": "J9",
     "x": 104.215,
     "y": 134.695,
-    "rot": 0.0,
+    "rot": 0,
     "side": "top",
     "thickness": 1.6,
     "pads": [
@@ -3977,13 +3977,13 @@
      "ref": "J1",
      "x": 94.234,
      "y": 344.424,
-     "rot": -90.0,
+     "rot": -90,
      "side": "bottom",
      "cx": 0.6250005000000001,
      "cy": -1.7000005000000002,
      "w": 5.250001,
      "d": 6.500001,
-     "h": 4.0
+     "h": 4
     }
    ]
   },
@@ -4028,6 +4028,51 @@
    "stack": null,
    "missing_models": [],
    "placeholders": []
+  },
+  {
+   "id": "rail-controller",
+   "name": "Rail controller (TPS2596xx)",
+   "folder": "DevelopmentBoards/module_railcontroller",
+   "project": "DevelopmentBoards/module_railcontroller/module_TPS2596xx.kicad_pro",
+   "in_stack": false,
+   "export_bom": false,
+   "has_export": true,
+   "glb": "boards/rail-controller/board.glb",
+   "thumb": "boards/rail-controller/top.png",
+   "stack": null,
+   "warnings": [
+    "Design preview: 9 DRC errors, 16 DRC warnings; no unrouted connections; schematic/PCB mismatch: missing R8. Saved schematic has 8 ERC errors and 1 warning. Not a fabrication release."
+   ],
+   "missing_models": [
+    {
+     "path": "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/HTSOP-8-1EP_3.9x4.9mm_Pitch1.27mm.step",
+     "refs": [
+      "U1"
+     ]
+    }
+   ],
+   "placeholders": [
+    {
+     "ref": "U1",
+     "x": 68.23,
+     "y": 59.68,
+     "rot": 0,
+     "side": "top",
+     "cx": 0,
+     "cy": -0.040000000000000036,
+     "w": 7.5,
+     "d": 5.58,
+     "h": 4
+    }
+   ],
+   "last_change": {
+    "date": "2026-10-30T09:00:56.670537+00:00",
+    "subject": "Saved rail-controller layout",
+    "author": "Padam (saved layout)",
+    "sha": "97018c7f26d0316789d258c58d64579a9c39f79e"
+   },
+   "source_pending": true
   }
- ]
+ ],
+ "module_placement_version": "module-fit-20261030a"
 }

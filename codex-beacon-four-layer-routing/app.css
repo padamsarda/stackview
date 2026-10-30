@@ -170,6 +170,22 @@ main.manual { max-width: 780px; }
   .v3d-bar .seg button[data-v="left"], .v3d-bar .seg button[data-v="right"], .v3d-bar .seg button[data-v="back"] { display: none; }
 }
 
+/* ---------- module placement ---------- */
+.module-fit { position: absolute; top: 12px; right: 12px; z-index: 1003; width: min(330px, calc(100% - 24px));
+  border: 1px solid var(--line); border-radius: 10px; background: var(--panel); font-size: 13px; }
+.module-fit summary { padding: 10px 12px; cursor: pointer; font-weight: 600; }
+.module-fit-body { padding: 0 12px 12px; max-height: calc(100dvh - 240px); overflow: auto; }
+.module-fit label { display: flex; flex-direction: column; gap: 4px; }
+.module-fit select, .module-fit input[type=number] { min-width: 0; width: 100%; box-sizing: border-box; border: 1px solid var(--line);
+  border-radius: 6px; background: var(--bg); color: var(--ink); padding: 6px; }
+.module-fit fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.module-fit fieldset:disabled { opacity: .45; }
+.module-fit-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.module-fit-modes, .module-fit .row { display: flex; flex-wrap: wrap; gap: 5px; }
+.module-fit-opacity { margin-top: 10px; }
+.v3d:has(.module-fit[open]) .v3d-missing { display: none; }
+@media (max-width: 760px) { .module-fit { top: 64px; } .module-fit-body { max-height: 42dvh; } }
+
 /* ---------- stack page ---------- */
 .stack-list { display: flex; flex-direction: column; gap: 6px; }
 .sb { border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; background: var(--bg); }

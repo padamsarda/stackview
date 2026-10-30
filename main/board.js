@@ -4,7 +4,7 @@ const MARGIN = 24;
 const $ = (sel, el = document) => el.querySelector(sel);
 const h = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; };
 
-let site, board, meta, base, tab, viewer, v3d, ruler;
+let site, board, meta, base, tab, viewer, v3d, ruler, modulePlacement;
 const state = { sheet: 0, pcbSide: 'top', layersOn: null, bomVariant: null };
 
 /* ---------- pan / zoom over stacked <img> layers ---------- */
@@ -121,6 +121,7 @@ class PanZoom {
 const isPhone = () => matchMedia('(max-width: 760px)').matches;
 
 function clearWorkspace() {
+  if (modulePlacement) { modulePlacement.dispose(); modulePlacement = null; }
   if (ruler) { ruler.dispose(); ruler = null; }
   if (v3d) { v3d.dispose(); v3d = null; }
   const ws = $('#workspace'); ws.innerHTML = '';
@@ -301,6 +302,9 @@ function show3d() {
       model.userData.fit = true;
       addPlaceholders(model, meta.placeholders, meta.stack?.thickness || 1.6);
       v.scene.add(model);
+      const { mountModulePlacement } = await import('./module-fit.js?v=module-fit-20261030a');
+      if (!view.isConnected) return;
+      modulePlacement = mountModulePlacement({ view, viewer: v, host: model, meta, site, board });
       v.fit(undefined, new v.THREE.Vector3(0.9, 1.1, 1.3), false);
       ph.remove();
       const { THREE } = v;
