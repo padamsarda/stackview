@@ -1,0 +1,1052 @@
+{
+ "sheets": [],
+ "layers": [
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-B_Cu.svg",
+   "name": "B.Cu",
+   "on": true,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#4D7FC4"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-F_Cu.svg",
+   "name": "F.Cu",
+   "on": true,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#C83434"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-F_Mask.svg",
+   "name": "F.Mask",
+   "on": false,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#D864FF"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-B_Mask.svg",
+   "name": "B.Mask",
+   "on": false,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#02FFEE"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-B_Silkscreen.svg",
+   "name": "B.Silkscreen",
+   "on": false,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#E8B2A7"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-F_Silkscreen.svg",
+   "name": "F.Silkscreen",
+   "on": true,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#F2EDA1"
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-B_Fab.svg",
+   "name": "B.Fab",
+   "on": false,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#585D84",
+   "texts": [
+    [
+     "J7",
+     2.54,
+     80.08
+    ],
+    [
+     "J4",
+     17.78,
+     72.46
+    ],
+    [
+     "J3",
+     2.54,
+     72.46
+    ],
+    [
+     "Conn_01x04_Pin",
+     73.62,
+     6.0
+    ],
+    [
+     "J1",
+     69.92,
+     6.0
+    ],
+    [
+     "J5",
+     2.54,
+     97.86
+    ],
+    [
+     "J6",
+     17.78,
+     97.86
+    ]
+   ]
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-F_Fab.svg",
+   "name": "F.Fab",
+   "on": false,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#AFAFAF",
+   "texts": [
+    [
+     "J10",
+     63.76,
+     57.58
+    ],
+    [
+     "J8",
+     97.8,
+     78.25
+    ],
+    [
+     "R11",
+     6.6,
+     34.28
+    ],
+    [
+     "C5",
+     9.74,
+     21.17
+    ],
+    [
+     "U1",
+     7.77,
+     82.67
+    ],
+    [
+     "LED1",
+     49.72,
+     4.0
+    ],
+    [
+     "J15",
+     35.82,
+     19.5
+    ],
+    [
+     "10pF",
+     66.05,
+     8.7
+    ],
+    [
+     "C6",
+     64.62,
+     8.4
+    ],
+    [
+     "C3",
+     10.87,
+     82.66
+    ],
+    [
+     "J7",
+     97.8,
+     37.29
+    ],
+    [
+     "C4",
+     14.07,
+     87.31
+    ],
+    [
+     "C2",
+     2.7,
+     74.37
+    ],
+    [
+     "J17",
+     35.82,
+     72.77
+    ],
+    [
+     "4.7k",
+     68.38,
+     9.08
+    ],
+    [
+     "R6",
+     68.38,
+     10.21
+    ],
+    [
+     "U1",
+     5.68,
+     21.69
+    ],
+    [
+     "C",
+     2.13,
+     28.25
+    ],
+    [
+     "C4",
+     3.81,
+     28.0
+    ],
+    [
+     "RV1",
+     14.35,
+     15.74
+    ],
+    [
+     "100n",
+     59.36,
+     7.43
+    ],
+    [
+     "C8",
+     59.36,
+     5.7
+    ],
+    [
+     "J9",
+     97.8,
+     93.49
+    ],
+    [
+     "J4",
+     34.21,
+     71.96
+    ],
+    [
+     "R4",
+     2.3,
+     91.17
+    ],
+    [
+     "3.3k",
+     64.72,
+     8.78
+    ],
+    [
+     "R4",
+     66.15,
+     8.48
+    ],
+    [
+     "R5",
+     10.41,
+     28.04
+    ],
+    [
+     "J2",
+     10.16,
+     92.68
+    ],
+    [
+     "C3",
+     41.18,
+     5.7
+    ],
+    [
+     "J6",
+     97.8,
+     22.05
+    ],
+    [
+     "C1",
+     40.02,
+     3.0
+    ],
+    [
+     "10pF",
+     41.45,
+     8.7
+    ],
+    [
+     "C2",
+     40.02,
+     8.4
+    ],
+    [
+     "R2",
+     37.42,
+     8.4
+    ],
+    [
+     "J3",
+     17.78,
+     6.85
+    ],
+    [
+     "C9",
+     30.32,
+     5.7
+    ],
+    [
+     "C5",
+     64.47,
+     2.99
+    ],
+    [
+     "J6",
+     19.58,
+     34.89
+    ],
+    [
+     "J16",
+     35.82,
+     43.51
+    ],
+    [
+     "C5",
+     14.07,
+     91.01
+    ],
+    [
+     "H4",
+     29.32,
+     9.5
+    ],
+    [
+     "C7",
+     63.31,
+     5.7
+    ],
+    [
+     "H3",
+     29.32,
+     2.5
+    ],
+    [
+     "J2",
+     17.78,
+     42.41
+    ],
+    [
+     "R4",
+     13.21,
+     28.05
+    ],
+    [
+     "J1",
+     10.16,
+     77.64
+    ],
+    [
+     "R1",
+     3.9,
+     86.37
+    ],
+    [
+     "Vout",
+     10.12,
+     11.97
+    ],
+    [
+     "J1",
+     2.54,
+     42.41
+    ],
+    [
+     "R3",
+     4.49,
+     80.76
+    ],
+    [
+     "U3",
+     12.7,
+     21.22
+    ],
+    [
+     "3.3k",
+     67.42,
+     3.3
+    ],
+    [
+     "R3",
+     65.99,
+     3.0
+    ],
+    [
+     "C6",
+     1.9,
+     86.37
+    ],
+    [
+     "U5",
+     33.82,
+     5.88
+    ],
+    [
+     "100n",
+     45.13,
+     4.57
+    ],
+    [
+     "C4",
+     45.13,
+     5.7
+    ],
+    [
+     "R5",
+     68.26,
+     1.42
+    ],
+    [
+     "H2",
+     75.32,
+     9.5
+    ],
+    [
+     "J3",
+     33.56,
+     41.52
+    ],
+    [
+     "C1",
+     8.0,
+     78.61
+    ],
+    [
+     "J5",
+     34.21,
+     94.31
+    ],
+    [
+     "LED4",
+     54.92,
+     8.0
+    ],
+    [
+     "J2",
+     33.56,
+     19.17
+    ],
+    [
+     "R2",
+     6.8,
+     85.57
+    ],
+    [
+     "R6",
+     6.35,
+     27.95
+    ],
+    [
+     "J1",
+     88.37,
+     57.77
+    ],
+    [
+     "R8",
+     7.11,
+     15.59
+    ],
+    [
+     "R1",
+     37.42,
+     3.0
+    ],
+    [
+     "LED2",
+     54.92,
+     4.0
+    ],
+    [
+     "L1",
+     16.3,
+     80.92
+    ],
+    [
+     "R7",
+     4.83,
+     15.59
+    ],
+    [
+     "H1",
+     75.32,
+     2.5
+    ],
+    [
+     "0.1uF",
+     11.12,
+     36.16
+    ],
+    [
+     "C3",
+     11.12,
+     37.59
+    ],
+    [
+     "J8",
+     2.54,
+     6.85
+    ],
+    [
+     "U2",
+     12.63,
+     33.4
+    ],
+    [
+     "J7",
+     17.78,
+     23.36
+    ],
+    [
+     "J14",
+     29.47,
+     57.5
+    ],
+    [
+     "LED3",
+     49.72,
+     8.0
+    ]
+   ]
+  },
+  {
+   "file": "pcb/Buck_Rail_CSS_MTQ-Edge_Cuts.svg",
+   "name": "Edge.Cuts",
+   "on": true,
+   "viewBox": [
+    0.0,
+    0.0,
+    99.8982,
+    99.8982
+   ],
+   "color": "#D0D2CD"
+  }
+ ],
+ "files": {
+  "top": "top.png",
+  "bottom": "bottom.png",
+  "glb": "board.glb",
+  "gerbers": "gerber_Buck_Rail_CSS_MTQ.zip",
+  "fabrication_notes": "FABRICATION_NOTES.md"
+ },
+ "warnings": [
+  "Solid board for manual cutting. No internal routing/tabs/mouse bites. Follow the unlabelled dotted guides, then trim toward solid individual contours from scrap side. Cut before assembly.",
+  "Assembly overhang/courtyard conflicts remain; no copper errors or opens. Border silk at outer panel edges causes expected edge-clearance warnings.",
+  "Existing MTQ INA226 switching-node voltage risk remains unresolved."
+ ],
+ "stack": null,
+ "missing_models": [
+  {
+   "path": "${KICAD10_3DMODEL_DIR}/Connector_Molex.3dshapes/Molex_PicoBlade_53047-0410_1x04_P1.25mm_Vertical.step",
+   "refs": [
+    "J6"
+   ]
+  },
+  {
+   "path": "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/HTSOP-8-1EP_3.9x4.9mm_Pitch1.27mm.step",
+   "refs": [
+    "U1"
+   ]
+  },
+  {
+   "path": "${KICAD10_3DMODEL_DIR}/TerminalBlock_RND.3dshapes/TerminalBlock_RND_205-00001_1x02_P5.00mm_Horizontal.step",
+   "refs": [
+    "J4",
+    "J9"
+   ]
+  },
+  {
+   "path": "${KIPRJMOD}/3dmodels/INA226_CJMCU_21x19_PROVISIONAL.wrl",
+   "refs": [
+    "U3",
+    "U4",
+    "U5"
+   ]
+  },
+  {
+   "path": "${KIPRJMOD}/3dmodels/MD-10116.STEP",
+   "refs": [
+    "U1",
+    "U2"
+   ]
+  },
+  {
+   "path": "${KIPRJMOD}/3dmodels/VLS6045EX-envelope.wrl",
+   "refs": [
+    "L1"
+   ]
+  },
+  {
+   "path": "${KIPRJMOD}/OPA320AIDBVR/OPA320AIDBVR.step",
+   "refs": [
+    "U1",
+    "U2",
+    "U3",
+    "U4"
+   ]
+  },
+  {
+   "path": "${KIPRJMOD}/PDB_C154SM/KiCADv6/PDB_C154SM_CAD/PDB-C154SM_ADP.step",
+   "refs": [
+    "LED1",
+    "LED2",
+    "LED3",
+    "LED4"
+   ]
+  }
+ ],
+ "placeholders": [
+  {
+   "ref": "U1",
+   "x": 57.77,
+   "y": 132.3125,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": -0.07000000000000006,
+   "w": 4.1,
+   "d": 3.54,
+   "h": 4.0
+  },
+  {
+   "ref": "LED1",
+   "x": 99.72,
+   "y": 53.5,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.4699,
+   "cy": 0.0,
+   "w": 5.969,
+   "d": 3.7084,
+   "h": 1.5
+  },
+  {
+   "ref": "U1",
+   "x": 55.68,
+   "y": 71.244,
+   "rot": 90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": -0.040000000000000036,
+   "w": 7.5,
+   "d": 5.58,
+   "h": 4.0
+  },
+  {
+   "ref": "J9",
+   "x": 147.796,
+   "y": 141.717,
+   "rot": 0.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 1.2750000000000001,
+   "w": 3.54,
+   "d": 6.09,
+   "h": 4.0
+  },
+  {
+   "ref": "J4",
+   "x": 78.0865,
+   "y": 118.958,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 2.5,
+   "cy": -0.5,
+   "w": 11.0,
+   "d": 10.0,
+   "h": 4.0
+  },
+  {
+   "ref": "U3",
+   "x": 99.282,
+   "y": 76.5,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 21.5,
+   "d": 19.5,
+   "h": 4.0
+  },
+  {
+   "ref": "U1",
+   "x": 93.97,
+   "y": 52.8,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.15000000000000013,
+   "cy": 0.0,
+   "w": 4.52,
+   "d": 3.4,
+   "h": 4.0
+  },
+  {
+   "ref": "U1",
+   "x": 127.658,
+   "y": 79.166988,
+   "rot": 90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 43.5,
+   "d": 35.5,
+   "h": 4.0
+  },
+  {
+   "ref": "J6",
+   "x": 147.796,
+   "y": 70.277,
+   "rot": 0.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 1.2750000000000001,
+   "w": 3.54,
+   "d": 6.09,
+   "h": 4.0
+  },
+  {
+   "ref": "J6",
+   "x": 68.231,
+   "y": 82.512,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 1.875,
+   "cy": -0.45500000000000007,
+   "w": 7.75,
+   "d": 4.21,
+   "h": 4.0
+  },
+  {
+   "ref": "J4",
+   "x": 57.62,
+   "y": 56.35,
+   "rot": 0.0,
+   "side": "top",
+   "cx": 2.5,
+   "cy": -0.3849999999999998,
+   "w": 11.0,
+   "d": 10.23,
+   "h": 4.0
+  },
+  {
+   "ref": "U4",
+   "x": 110.67,
+   "y": 58.2,
+   "rot": 180.0,
+   "side": "top",
+   "cx": -0.15000000000000013,
+   "cy": 0.0,
+   "w": 4.52,
+   "d": 3.4,
+   "h": 4.0
+  },
+  {
+   "ref": "U5",
+   "x": 99.282,
+   "y": 129.84,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 21.5,
+   "d": 19.5,
+   "h": 4.0
+  },
+  {
+   "ref": "U3",
+   "x": 62.7,
+   "y": 70.8575,
+   "rot": 90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": -0.07000000000000006,
+   "w": 4.1,
+   "d": 3.54,
+   "h": 4.0
+  },
+  {
+   "ref": "J9",
+   "x": 62.7,
+   "y": 93.4925,
+   "rot": 180.0,
+   "side": "top",
+   "cx": 2.5,
+   "cy": -0.3849999999999998,
+   "w": 11.0,
+   "d": 10.23,
+   "h": 4.0
+  },
+  {
+   "ref": "U5",
+   "x": 83.82,
+   "y": 55.5,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 6.26,
+   "d": 3.5,
+   "h": 4.0
+  },
+  {
+   "ref": "U2",
+   "x": 110.67,
+   "y": 52.8,
+   "rot": 180.0,
+   "side": "top",
+   "cx": -0.15000000000000013,
+   "cy": 0.0,
+   "w": 4.52,
+   "d": 3.4,
+   "h": 4.0
+  },
+  {
+   "ref": "U2",
+   "x": 127.658,
+   "y": 135.366988,
+   "rot": 90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 43.5,
+   "d": 35.5,
+   "h": 4.0
+  },
+  {
+   "ref": "U3",
+   "x": 93.97,
+   "y": 58.2,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.15000000000000013,
+   "cy": 0.0,
+   "w": 4.52,
+   "d": 3.4,
+   "h": 4.0
+  },
+  {
+   "ref": "LED4",
+   "x": 104.92,
+   "y": 57.5,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.4699,
+   "cy": 0.0,
+   "w": 5.969,
+   "d": 3.7084,
+   "h": 1.5
+  },
+  {
+   "ref": "LED2",
+   "x": 104.92,
+   "y": 53.5,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.4699,
+   "cy": 0.0,
+   "w": 5.969,
+   "d": 3.7084,
+   "h": 1.5
+  },
+  {
+   "ref": "L1",
+   "x": 66.3,
+   "y": 130.42,
+   "rot": 0.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 6.6,
+   "d": 6.5,
+   "h": 1.5
+  },
+  {
+   "ref": "U4",
+   "x": 99.282,
+   "y": 102.0,
+   "rot": -90.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 21.5,
+   "d": 19.5,
+   "h": 4.0
+  },
+  {
+   "ref": "U2",
+   "x": 62.635,
+   "y": 82.9,
+   "rot": 180.0,
+   "side": "top",
+   "cx": 0.0,
+   "cy": -0.04999999999999982,
+   "w": 7.4,
+   "d": 5.5,
+   "h": 4.0
+  },
+  {
+   "ref": "LED3",
+   "x": 99.72,
+   "y": 57.5,
+   "rot": 0.0,
+   "side": "top",
+   "cx": -0.4699,
+   "cy": 0.0,
+   "w": 5.969,
+   "d": 3.7084,
+   "h": 1.5
+  },
+  {
+   "ref": "J4",
+   "x": 67.78,
+   "y": 121.96,
+   "rot": 180.0,
+   "side": "bottom",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 3.54,
+   "d": 3.54,
+   "h": 4.0
+  },
+  {
+   "ref": "J6",
+   "x": 67.78,
+   "y": 147.36,
+   "rot": 180.0,
+   "side": "bottom",
+   "cx": 0.0,
+   "cy": 0.0,
+   "w": 3.54,
+   "d": 3.54,
+   "h": 4.0
+  }
+ ],
+ "glb_bytes": 15746628,
+ "source_hash": "4:39fbb0c9bdafb6cc280f90a1cbdf0d71f9ca3518:39fbb0c9bdafb6cc280f90a1cbdf0d71f9ca3518:45e59f3704d334844056f6e38ee5d2b23e6f63b1",
+ "source_files_sha256": {
+  "kicad_pcb": "a311747a59b883829445dd0400d2c1ef0fcfcd18d222130a761b3a738fdd6a89",
+  "kicad_pro": "74f3acffb64657d52bd92c79c8f2f3d8f2fbf00c4efcf47ce5357aeb67124529"
+ },
+ "source_pending": false,
+ "source_revision": "codex/beacon-four-layer-routing @ 4066d4a64e447bdfc2039187cdc094e4a4882d94",
+ "design_checks": {
+  "errors": 7,
+  "warnings": 109,
+  "unconnected": 0,
+  "parity": 0
+ },
+ "panelization": {
+  "construction": "single solid board; manual cutting only",
+  "internal_routing": false,
+  "tabs": 0,
+  "mousebite_holes": 0,
+  "cut_lanes_mm": {
+   "vertical": 2,
+   "css_mtq": 2,
+   "rail_buck": 19.89
+  },
+  "cut_guides": [
+   {
+    "name": "CUT 1",
+    "axis": "V",
+    "fixed": 71.32,
+    "start": 50,
+    "end": 149.9,
+    "label": 107
+   },
+   {
+    "name": "CUT 2",
+    "axis": "H",
+    "fixed": 62,
+    "start": 71.32,
+    "end": 149.9,
+    "label": 136
+   },
+   {
+    "name": "CUT 3",
+    "axis": "H",
+    "fixed": 109.475,
+    "start": 50,
+    "end": 71.32,
+    "label": 60.66
+   }
+  ]
+ },
+ "gerber_sha256": "86474c199b036e21ab68c46ffaff0f76e5c97134a3e4c223cce55645fc2d2c8e",
+ "thickness": 1.6,
+ "source_commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+ "component_sources": [
+  {
+   "id": "mtq-carrier",
+   "folder": "DevelopmentBoards/carrier_MTQ",
+   "source_commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+   "sha256": {
+    "kicad_pcb": "004c437ace841903782176e9c76c8b0c9b936e2960b8d15e54e9077d67af19f0",
+    "kicad_sch": "d59a59e0ce19d61747a27f9af7df195d5c4a1c16092b3d80fa39326d18d8e61b",
+    "kicad_pro": "0af76e8ed70cd158c45a9347004b1d4fc3712935bb0f60e20e725803388602fa"
+   }
+  },
+  {
+   "id": "rail-controller",
+   "folder": "DevelopmentBoards/module_railcontroller",
+   "source_commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+   "sha256": {
+    "kicad_pcb": "0698ce9ddc0c9f6207fef5985605d5bd1900d769b64f2e50145bcaec1b6b12d7",
+    "kicad_sch": "79085f07ab93b9d5378f3a2ab1b9298bd3c3df3773e315cf713d19adfb7b4837",
+    "kicad_pro": "c787612d8f91e5b1aa9f1a0df226b6913d36b3626604ec3a00225e6d8710018b"
+   }
+  },
+  {
+   "id": "buck-tps54302",
+   "folder": "DevelopmentBoards/module_buck5V_TPS54302",
+   "source_commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+   "sha256": {
+    "kicad_pcb": "8d672618d8fe877ca6b1e0fd9c509e471f95a44ce9a69d9c7c8741a4e32653df",
+    "kicad_sch": "0a3ba34025e929101dc5391224ce5bf0412b5135ff2771cad3a198fcda6a2882",
+    "kicad_pro": "fe0c590965808e993f33344b9c7888f6b4f726e990dc9d203108eda6ef1b4e4e"
+   }
+  },
+  {
+   "id": "css",
+   "folder": "SolarPanelBoard/module_CSS",
+   "source_commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+   "sha256": {
+    "kicad_pcb": "7e9a53b5e0c8487f396f307cb325273f00c6f386054b72088a90d22c9cc002ed",
+    "kicad_sch": "116d1aa9bb79321e66529072bba9f82ee7da726f3dc48f7b1da405697f6ca24a",
+    "kicad_pro": "ef8d5bb2ea00345a0fe287b0a295689b9d74d3cdccc9ac2cde8be2abe74758eb"
+   }
+  }
+ ]
+}

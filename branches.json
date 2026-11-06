@@ -1,0 +1,30 @@
+[
+ {
+  "branch": "main",
+  "slug": "main",
+  "commit": "74bd88926d1d82368f7689cf9a0ccc3c611bab40",
+  "subject": "stencil panel",
+  "built": "2026-11-06T12:58:16+00:00"
+ },
+ {
+  "branch": "codex/adcs-final-em",
+  "slug": "codex-adcs-final-em",
+  "commit": "1afe46df44ba214d8019aeb7869aaf3240e8ec71",
+  "subject": "Panel and module sources synchronized with Stackview",
+  "built": "2026-11-04T12:42:58.220894+00:00"
+ },
+ {
+  "branch": "codex/beacon-four-layer-routing",
+  "slug": "codex-beacon-four-layer-routing",
+  "commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+  "subject": "Panel and module sources synchronized with Stackview",
+  "built": "2026-11-04T12:42:58.220894+00:00"
+ },
+ {
+  "branch": "codex/eps-beacon-4layer-t-magnetorquers",
+  "slug": "codex-eps-beacon-4layer-t-magnetorquers",
+  "commit": "3fc44e97bc82e89c35fa574dc63972d9903c7ea9",
+  "subject": "Panel and module sources synchronized with Stackview",
+  "built": "2026-11-04T12:42:58.220894+00:00"
+ }
+]
