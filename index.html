@@ -3,358 +3,229 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080e18">
+<meta name="theme-color" content="#110c11">
 <title>Stackview · AnantSAT-II</title>
+<link rel="preload" href="homepage/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face {
+    font-family: "Instrument Serif";
+    src: url("homepage/instrument-serif.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow Semi Condensed";
+    src: url("homepage/barlow-regular.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
   :root {
     color-scheme: dark;
-    --space: #080e18;
-    --ink: #eef3fa;
-    --muted: #acbbcf;
-    --line: #27364a;
-    --accent: #a5e9e1;
-    --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+    --background: #110c11;
+    --ink: #f7f0e8;
+    --muted: #c5b9b5;
+    --accent: #e5c6a5;
+    --line: #eee1d442;
+    --display: "Instrument Serif", Georgia, serif;
+    --body: "Barlow Semi Condensed", "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     min-height: 100vh;
-    background: var(--space);
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    isolation: isolate;
+    background: var(--background);
     color: var(--ink);
-    font: 16px/1.5 "Inter", system-ui, sans-serif;
+    font: 400 17px/1.45 var(--body);
   }
-  a { color: inherit; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-  .bar, main { width: min(1340px, 100% - 2 * clamp(20px, 5vw, 72px)); margin-inline: auto; }
-  .bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    min-height: 76px;
-    border-bottom: 1px solid var(--line);
+  .sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
   }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 650; letter-spacing: -.015em; }
-  .brand-mark {
-    width: 24px;
-    height: 24px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    position: relative;
+  .sky img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 72% 66%;
+    transform-origin: 74% 68%;
+    animation: horizon-drift 65s ease-in-out infinite alternate;
   }
-  .brand-mark::after {
+  .sky::after {
     content: "";
     position: absolute;
-    inset: 8px -5px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    transform: rotate(-43deg);
+    inset: 0;
+    background:
+      linear-gradient(90deg, #110c11a6, #110c1147 53%, transparent 83%),
+      linear-gradient(0deg, #110c119e, transparent 36%);
   }
-  .guide { color: var(--muted); font-size: 13px; text-decoration: none; }
-  .guide:hover { color: var(--ink); text-decoration: underline; }
-  main {
-    min-height: calc(100svh - 76px);
-    padding-block: clamp(32px, 6vh, 80px);
-    display: grid;
-    grid-template-columns: minmax(290px, .83fr) minmax(0, 1.17fr);
-    gap: clamp(24px, 5vw, 78px);
+  @keyframes horizon-drift {
+    from { transform: scale(1.015); }
+    to { transform: scale(1.08) translate(-1.3%, 1.1%); }
+  }
+  body[data-motion="paused"] .sky img { animation-play-state: paused; }
+  .bar, main, footer {
+    width: min(1440px, 100% - 2 * clamp(24px, 6vw, 104px));
+    margin-inline: auto;
+  }
+  .bar {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 84px;
+    border-bottom: 1px solid var(--line);
   }
-  .mission { color: var(--accent); font: 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
-  h1 {
-    font-size: clamp(46px, 6.8vw, 106px);
-    font-weight: 630;
-    letter-spacing: -.075em;
-    line-height: 1;
-    margin: 12px 0 clamp(24px, 4vh, 44px);
-  }
-  .choices { display: grid; gap: 12px; }
-  .choice {
-    --choice: #a5e9e1;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4px 14px;
-    padding: 18px 20px;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: #101a29;
+  .brand { font-size: 20px; letter-spacing: .12em; text-transform: uppercase; }
+  .guide, .motion {
+    color: var(--muted);
+    font: inherit;
+    font-size: 15px;
     text-decoration: none;
-    transition: border-color .25s, background .25s;
   }
-  .choice[data-view="boards"] { --choice: #f2bf90; }
-  .choice:hover, .choice:focus-visible { border-color: var(--choice); background: #152236; }
-  .choice h2 { margin: 0; font-size: 20px; font-weight: 620; letter-spacing: -.025em; }
-  .choice p { grid-column: 1; margin: 0; color: var(--muted); font-size: 14px; }
-  .arrow {
-    grid-area: 1 / 2 / 3 / 3;
+  .guide:hover, .motion:hover { color: var(--ink); text-decoration: underline; text-underline-offset: .28em; }
+  main {
     align-self: center;
-    width: 36px;
-    height: 36px;
+    padding-block: clamp(38px, 8vh, 106px);
+  }
+  .mission {
+    margin: 0 0 9px;
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0 0 clamp(26px, 5.2vh, 60px);
+    font: 400 clamp(64px, 11vw, 166px)/.86 var(--display);
+    letter-spacing: -.045em;
+  }
+  .choices {
+    display: grid;
+    width: min(100%, 530px);
+    border-top: 1px solid var(--line);
+  }
+  .choice {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px;
+    align-items: center;
+    gap: 14px;
+    min-height: 88px;
+    padding: 11px 4px 13px 0;
+    border-bottom: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+  }
+  .choice h2 {
+    margin: 0;
+    font: 400 35px/1.04 var(--display);
+    letter-spacing: -.012em;
+    transition: color .25s ease;
+  }
+  .choice p { margin: 5px 0 0; color: var(--muted); }
+  .arrow {
+    width: 38px;
+    height: 38px;
     display: grid;
     place-items: center;
     border: 1px solid var(--line);
     border-radius: 50%;
-    color: var(--choice);
-    transition: transform .25s, border-color .25s;
+    color: var(--accent);
+    font-size: 19px;
+    transition: transform .25s ease, color .25s ease, background .25s ease;
   }
-  .choice:hover .arrow, .choice:focus-visible .arrow { transform: translateX(3px); border-color: var(--choice); }
-  .orbit {
-    position: relative;
-    margin: 0;
-    aspect-ratio: 1.05;
-    max-height: min(70vh, 700px);
-    min-height: 340px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    background: radial-gradient(ellipse at 53% 47%, #172c43 0%, #101b2b 43%, #0b1421 78%);
+  .choice:is(:hover, :focus-visible) h2 { color: var(--accent); }
+  .choice:is(:hover, :focus-visible) .arrow {
+    transform: translateX(3px);
+    color: var(--background);
+    background: var(--accent);
   }
-  .orbit canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-  .orbit-caption {
-    position: absolute;
-    left: 18px;
-    bottom: 16px;
-    color: var(--muted);
-    font: 11px var(--mono);
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    pointer-events: none;
+  :is(a, button):focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+  footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 68px;
   }
-  .orbit-caption::before { content: ""; display: inline-block; vertical-align: .1em; width: 13px; margin-right: 9px; border-top: 1px solid var(--accent); }
   .motion {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    padding: 6px 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--space);
-    color: var(--muted);
-    font: 11px var(--mono);
+    padding: 6px 0 6px 10px;
+    border: 0;
+    background: none;
     cursor: pointer;
   }
-  .motion:hover { color: var(--ink); border-color: var(--muted); }
-  .motion:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  @media (max-width: 760px) {
-    .bar { min-height: 64px; }
-    main { min-height: auto; grid-template-columns: 1fr; padding-block: 28px; }
-    .orbit { min-height: 250px; max-height: 420px; aspect-ratio: 1.28; }
-    .choice { padding: 14px 16px; }
+  @media (max-width: 640px) {
+    .bar { min-height: 65px; }
+    .brand { font-size: 17px; }
+    .sky img {
+      position: absolute;
+      bottom: 0;
+      height: 86%;
+      object-position: 59% 64%;
+      mask-image: linear-gradient(transparent, #000 18%);
+    }
+    .sky::after { background: linear-gradient(90deg, #110c11d1, #110c1180 68%, #110c1140); }
+    h1 { font-size: clamp(60px, 14.5vw, 94px); }
+    .choice h2 { font-size: 31px; }
+    .choice { min-height: 81px; }
+    footer { min-height: 54px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .choice, .arrow { transition: none; }
-    .choice:hover .arrow, .choice:focus-visible .arrow { transform: none; }
+    body:not([data-motion="playing"]) .sky img { animation-play-state: paused; }
+    .choice h2, .arrow { transition: none; }
+    .choice:is(:hover, :focus-visible) .arrow { transform: none; }
   }
 </style>
 </head>
 <body>
+<div class="sky" aria-hidden="true"><img src="homepage/earth-limb.webp" alt="" fetchpriority="high"></div>
 <header class="bar">
-  <div class="brand"><span class="brand-mark" aria-hidden="true"></span> Stackview</div>
+  <span class="brand">Stackview</span>
   <a class="guide" href="main/help.html">Viewer guide <span aria-hidden="true">↗</span></a>
 </header>
 <main>
-  <section aria-labelledby="mission-title">
-    <div class="mission">3U CubeSat</div>
-    <h1 id="mission-title">AnantSAT-II</h1>
-    <nav class="choices" aria-label="Choose a viewer">
-      <a class="choice" data-view="system" href="system-stack/">
+  <p class="mission">3U CubeSat</p>
+  <h1>AnantSAT-II</h1>
+  <nav class="choices" aria-label="Choose a viewer">
+    <a class="choice" href="system-stack/">
+      <div>
         <h2>System Stack</h2>
-        <p>Inspect the full spacecraft, from the camera to the antenna, in two assembly configurations.</p>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="choice" data-view="boards" href="main/">
+        <p>Full spacecraft assembly · Case 1 and Case 2</p>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="choice" href="main/">
+      <div>
         <h2>Board Viewer</h2>
-        <p>Browse individual PCBs, schematics, 3D models and bills of materials.</p>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-    </nav>
-  </section>
-  <figure class="orbit">
-    <canvas aria-hidden="true"></canvas>
-    <figcaption class="orbit-caption">Spacecraft illustration</figcaption>
-    <button class="motion" type="button" hidden>Pause motion</button>
-  </figure>
+        <p>Individual PCBs, schematics, 3D models and BOMs</p>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </nav>
 </main>
+<footer><button class="motion" type="button" hidden>Pause motion</button></footer>
 <script>
-  const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
+  const motionButton = document.querySelector('.motion');
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 
-  if (ctx) {
-    const caption = document.querySelector('.orbit-caption');
-    const motion = document.querySelector('.motion');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    const stars = Array.from({ length: 120 }, (_, i) => [
-      (i * 0.6180339887) % 1,
-      (i * i * 0.4142135624) % 1,
-      i % 11 === 0 ? 1.25 : .55,
-    ]);
-    const colors = { orbit: '#81a9cf', body: '#b4efe8', panel: '#659cbd', board: '#f4c79c' };
-    let width, height, frame, lastFrame;
-    let elapsed = 0;
-    let moving = !reduced.matches;
-    let exploded = 0;
-    let target = 0;
-
-    function stroke(points, color, opacity, close = false, fill = '') {
-      ctx.beginPath();
-      for (const [index, [x, y]] of points.entries()) {
-        if (index === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      if (close) ctx.closePath();
-      if (fill) {
-        ctx.globalAlpha = opacity * .35;
-        ctx.fillStyle = fill;
-        ctx.fill();
-      }
-      ctx.globalAlpha = opacity;
-      ctx.strokeStyle = color;
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-    }
-
-    function draw(time) {
-      const phase = time / 1000;
-      exploded = moving ? exploded + (target - exploded) * .045 : target;
-      const size = Math.min(width, height);
-      const centerX = width * .5;
-      const centerY = height * .48;
-      ctx.clearRect(0, 0, width, height);
-
-      for (const [x, y, radius] of stars) {
-        ctx.fillStyle = radius > 1 ? '#829ab8' : '#455d79';
-        ctx.fillRect(x * width, y * height, radius, radius);
-      }
-
-      ctx.lineWidth = .7;
-      for (const radius of [.14, .23, .32, .41]) {
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, size * radius, 0, Math.PI * 2);
-        ctx.strokeStyle = '#253c52';
-        ctx.stroke();
-      }
-      for (let i = -4; i <= 4; i++) {
-        const x = centerX + i * size * .093;
-        const y = centerY + i * size * .093;
-        stroke([[x, centerY - 3], [x, centerY + 3]], colors.orbit, .4);
-        stroke([[centerX - 3, y], [centerX + 3, y]], colors.orbit, .4);
-      }
-
-      const orbits = [[.45, .18, -.47], [.41, .19, .67], [.38, .13, -1.11]];
-      for (const [index, [a, b, angle]] of orbits.entries()) {
-        const position = t => [
-          centerX + size * (a * Math.cos(t) * Math.cos(angle) - b * Math.sin(t) * Math.sin(angle)),
-          centerY + size * (a * Math.cos(t) * Math.sin(angle) + b * Math.sin(t) * Math.cos(angle)),
-        ];
-        stroke(Array.from({ length: 81 }, (_, i) => position(i * Math.PI / 40)), colors.orbit, .46);
-        const speed = index === 1 ? -.19 : .23;
-        const marker = phase * speed + index * 2.1;
-        for (let j = 0; j < 20; j++) {
-          stroke([position(marker - j * .035), position(marker - (j + 1) * .035)],
-            index === 1 ? colors.board : colors.body, .68 * (1 - j / 20));
-        }
-        const [x, y] = position(marker);
-        ctx.fillStyle = index === 1 ? colors.board : colors.body;
-        ctx.beginPath();
-        ctx.arc(x, y, 2.3, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      const yaw = .68 + Math.sin(phase * .25) * .24;
-      const pitch = -.4;
-      const scale = size * .083;
-      const project = ([x, y, z]) => {
-        const across = x * Math.cos(yaw) - z * Math.sin(yaw);
-        const depth = x * Math.sin(yaw) + z * Math.cos(yaw);
-        const up = y * Math.cos(pitch) - depth * Math.sin(pitch);
-        return [centerX + across * scale, centerY - up * scale];
-      };
-      const shape = (points, color, opacity, fill) => stroke(points.map(project), color, opacity, true, fill);
-      const panel = (x, y, z = 0) => [[-x, y, -x + z], [x, y, -x + z], [x, y, x + z], [-x, y, x + z]];
-      const corners = panel(.64, 0);
-      const shellBottom = panel(.64, -1.48);
-      const shellTop = panel(.64, 1.48);
-      ctx.lineWidth = 1.2;
-      for (const sign of [-1, 1]) {
-        for (let row = 0; row < 2; row++) {
-          for (let col = 0; col < 4; col++) {
-            const x1 = sign * (.72 + .38 * col);
-            const x2 = x1 + sign * .33;
-            const y1 = -.58 + row * .59;
-            shape([[x1, y1, .12], [x2, y1, .12], [x2, y1 + .53, .12], [x1, y1 + .53, .12]],
-              colors.panel, .8 - exploded * .58, '#122e49');
-          }
-        }
-      }
-      for (const [x, , z] of corners) {
-        stroke([project([x, -1.48, z]), project([x, 1.48, z])], colors.body, .93 - exploded * .7);
-      }
-      shape(shellBottom, colors.body, .9 - exploded * .63, '#162f46');
-      for (let i = 0; i < 6; i++) {
-        const y = (i - 2.5) * (.43 + exploded * .37);
-        shape(panel(.59, y), exploded > .12 ? colors.board : colors.body, .58 + exploded * .3, '#112f44');
-        for (const x of [-.36, .18]) {
-          shape([[x, y, -.24], [x + .15, y, -.24], [x + .15, y, .09], [x, y, .09]],
-            colors.board, .35 + exploded * .5);
-        }
-      }
-      shape(shellTop, colors.body, .95 - exploded * .72, '#172e47');
-      for (const radius of [.23, .33]) {
-        shape(Array.from({ length: 25 }, (_, i) => {
-          const angle = i * Math.PI / 12;
-          return [radius * Math.cos(angle), 1.55, radius * Math.sin(angle)];
-        }), colors.body, .92 - exploded * .74);
-      }
-    }
-
-    function animate(time) {
-      if (lastFrame !== undefined) elapsed += time - lastFrame;
-      lastFrame = time;
-      draw(elapsed);
-      frame = requestAnimationFrame(animate);
-    }
-
-    function updateMotion() {
-      cancelAnimationFrame(frame);
-      lastFrame = undefined;
-      motion.textContent = moving ? 'Pause motion' : 'Play motion';
-      if (width && !moving) draw(elapsed);
-      if (width && moving && !document.hidden) frame = requestAnimationFrame(animate);
-    }
-
-    new ResizeObserver(() => {
-      const bounds = canvas.getBoundingClientRect();
-      const ratio = Math.min(devicePixelRatio, 2);
-      width = bounds.width;
-      height = bounds.height;
-      canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      updateMotion();
-    }).observe(canvas);
-    motion.hidden = false;
-    motion.addEventListener('click', () => {
-      moving = !moving;
-      updateMotion();
-    });
-    reduced.addEventListener('change', () => {
-      moving = !reduced.matches;
-      updateMotion();
-    });
-    document.addEventListener('visibilitychange', updateMotion);
-
-    const choices = document.querySelector('.choices');
-    const board = choices.querySelector('[data-view="boards"]');
-    function updateView() {
-      target = Number(board.matches(':hover, :focus-visible'));
-      caption.textContent = target ? 'Exploded board illustration' : 'Spacecraft illustration';
-      if (!moving && width) draw(elapsed);
-    }
-    choices.addEventListener('pointerover', updateView);
-    choices.addEventListener('pointerout', () => requestAnimationFrame(updateView));
-    choices.addEventListener('focusin', updateView);
-    choices.addEventListener('focusout', () => requestAnimationFrame(updateView));
+  function setMotion(playing) {
+    document.body.dataset.motion = playing ? 'playing' : 'paused';
+    motionButton.textContent = playing ? 'Pause motion' : 'Play motion';
   }
+
+  setMotion(!motionPreference.matches);
+  motionButton.hidden = false;
+  motionButton.addEventListener('click', () => {
+    setMotion(document.body.dataset.motion !== 'playing');
+  });
+  motionPreference.addEventListener('change', event => setMotion(!event.matches));
 </script>
 </body>
 </html>
