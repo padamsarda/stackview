@@ -3,24 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stackview branches</title>
+<title>AnantSAT 3U · Stackview</title>
 <link rel="stylesheet" href="main/app.css">
+<style>
+  .viewer-home { max-width: 900px; margin: 0 auto; padding: clamp(32px, 8vw, 80px) 16px 48px; }
+  .viewer-home h1 { margin: 0 0 24px; font-size: clamp(28px, 5vw, 42px); letter-spacing: -.035em; }
+  .viewer-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .viewer-choice { padding: clamp(20px, 4vw, 32px); }
+  .viewer-choice h2 { margin: 0; font-size: 23px; }
+  .viewer-choice p { margin: 8px 0 24px; }
+  .viewer-choice .open-viewer { margin-top: auto; color: var(--accent); font-weight: 600; }
+  .viewer-choice:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .branch-list { margin-top: 32px; }
+  .branch-list summary { cursor: pointer; width: fit-content; color: var(--accent); }
+  .branch-list .grid { margin-top: 16px; }
+  @media (max-width: 600px) { .viewer-choices { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-<header class="top"><h1>AnantSAT 3U · Stackview</h1><span class="spacer"></span><a class="btn" href="main/help.html">Help / manual</a></header>
-<main class="home">
-  <p class="muted">Every branch gets its own preview. <b>main</b> is the integrated design; <code>wip/…</code> branches are work in progress.</p>
-  <div class="grid" id="list"></div>
+<header class="top"><strong>AnantSAT 3U</strong><span class="spacer"></span><a class="btn" href="main/help.html">Help / manual</a></header>
+<main class="viewer-home">
+  <h1>Stackview</h1>
+  <nav class="viewer-choices" aria-label="Choose a viewer">
+    <a class="card viewer-choice" href="system-stack/">
+      <h2>System Stack</h2>
+      <p class="muted">Explore the full spacecraft in 3D, including the camera, antennas, reaction wheels and solar panels. Choose Case 1 or Case 2.</p>
+      <span class="open-viewer">Open System Stack <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="card viewer-choice" href="main/">
+      <h2>Board Viewer</h2>
+      <p class="muted">Browse individual PCBs, schematics, 3D models and bills of materials.</p>
+      <span class="open-viewer">Open Board Viewer <span aria-hidden="true">→</span></span>
+    </a>
+  </nav>
+  <details class="branch-list">
+    <summary>All branch previews</summary>
+    <div class="grid" id="list"></div>
+  </details>
 </main>
 <script>
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-fetch('branches.json', { cache: 'no-cache' }).then(r => r.json()).then(list => {
-  document.getElementById('list').innerHTML = list.map(b => `
+const branchList = document.getElementById('list');
+fetch('branches.json', { cache: 'no-cache' }).then(response => {
+  if (!response.ok) throw new Error('Could not load branch previews');
+  return response.json();
+}).then(list => {
+  branchList.innerHTML = list.map(b => `
     <a class="card" href="${encodeURIComponent(b.slug)}/"><div class="body">
       <h3>${esc(b.branch)}</h3>
       <div class="small muted">${esc(b.subject)}</div>
-      <div class="small muted">${b.commit.slice(0, 7)} · built ${new Date(b.built).toLocaleString()}</div>
+      <div class="small muted">${esc(b.commit.slice(0, 7))} · built ${new Date(b.built).toLocaleString()}</div>
     </div></a>`).join('');
+}).catch(() => {
+  branchList.textContent = 'Could not load branch previews.';
 });
 </script>
 </body>
