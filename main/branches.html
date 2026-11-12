@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board Branches · AnantSAT Stackview</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <h1>Board Viewer</h1>
+  <span class="spacer"></span>
+  <a class="btn" href="./">Boards</a>
+  <a class="btn" href="../">Home</a>
+</header>
+<main class="home">
+  <h2>Board branches</h2>
+  <p class="muted"><strong>main</strong> shows the integrated PCB design. Select a branch to view its boards.</p>
+  <p id="status" class="muted" role="status"></p>
+  <noscript>Enable JavaScript to load the board branch list.</noscript>
+  <nav class="grid" id="list" aria-label="Board branches"></nav>
+</main>
+<script src="common.js"></script>
+<script>
+const list = document.getElementById('list');
+const statusMessage = document.getElementById('status');
+
+async function renderBranches() {
+  try {
+    const response = await fetch('../branches.json', { cache: 'no-cache' });
+    if (!response.ok) throw new Error('Could not load board branches');
+    const branches = await response.json();
+    const boardBranches = branches.filter(branch =>
+      branch.slug !== 'system-stack' && branch.slug !== 'codex-system-stack'
+    );
+
+    list.innerHTML = boardBranches.map(branch => `
+      <a class="card" href="../${encodeURIComponent(branch.slug)}/">
+        <div class="body">
+          <h3>${esc(branch.branch)}</h3>
+          <div class="small muted">${esc(branch.subject)}</div>
+          <div class="small muted">${esc(branch.commit.slice(0, 7))} · built ${new Date(branch.built).toLocaleString()}</div>
+        </div>
+      </a>`).join('');
+    if (!boardBranches.length) statusMessage.textContent = 'No board branch previews are available.';
+  } catch {
+    statusMessage.textContent = 'Could not load board branches. Reload the page to try again.';
+  }
+}
+
+renderBranches();
+</script>
+</body>
+</html>
