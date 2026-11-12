@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#110c11">
+<meta name="theme-color" content="#0f1319">
 <title>Stackview · AnantSAT-II</title>
 <link rel="preload" href="homepage/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -28,6 +28,10 @@
     --muted: #c5b9b5;
     --accent: #e5c6a5;
     --line: #eee1d442;
+    --viewer-accent: #9dbdff;
+    --control-bg: #171c248c;
+    --control-line: #98a2b359;
+    --control-radius: 8px;
     --display: "Instrument Serif", Georgia, serif;
     --body: "Barlow Semi Condensed", "Segoe UI", sans-serif;
   }
@@ -51,6 +55,9 @@
     pointer-events: none;
   }
   .sky img {
+    --horizon-x: 0px;
+    --horizon-y: 0px;
+    --horizon-light: 1;
     display: block;
     width: 100%;
     height: 100%;
@@ -58,6 +65,11 @@
     object-position: 72% 66%;
     transform-origin: 74% 68%;
     animation: horizon-drift 65s ease-in-out infinite alternate;
+  }
+  body[data-motion="playing"] .sky img {
+    translate: var(--horizon-x) var(--horizon-y);
+    filter: brightness(var(--horizon-light));
+    transition: translate 650ms ease-out, filter 850ms ease-out;
   }
   .sky::after {
     content: "";
@@ -68,7 +80,7 @@
       linear-gradient(0deg, #110c119e, transparent 36%);
   }
   @keyframes horizon-drift {
-    from { transform: scale(1.015); }
+    from { transform: scale(1.055); }
     to { transform: scale(1.08) translate(-1.3%, 1.1%); }
   }
   body[data-motion="paused"] .sky img { animation-play-state: paused; }
@@ -86,12 +98,20 @@
   }
   .brand { font-size: 20px; letter-spacing: .12em; text-transform: uppercase; }
   .guide, .motion {
-    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--control-line);
+    border-radius: var(--control-radius);
+    background: var(--control-bg);
+    color: var(--ink);
     font: inherit;
     font-size: 15px;
     text-decoration: none;
   }
-  .guide:hover, .motion:hover { color: var(--ink); text-decoration: underline; text-underline-offset: .28em; }
+  .motion[hidden] { display: none; }
+  .guide:hover, .motion:hover { border-color: var(--viewer-accent); }
   main {
     align-self: center;
     padding-block: clamp(38px, 8vh, 106px);
@@ -136,31 +156,27 @@
     height: 38px;
     display: grid;
     place-items: center;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    color: var(--accent);
+    border: 1px solid var(--control-line);
+    border-radius: var(--control-radius);
+    background: var(--control-bg);
+    color: var(--viewer-accent);
     font-size: 19px;
     transition: transform .25s ease, color .25s ease, background .25s ease;
   }
-  .choice:is(:hover, :focus-visible) h2 { color: var(--accent); }
+  .choice:is(:hover, :focus-visible) h2 { color: var(--viewer-accent); }
   .choice:is(:hover, :focus-visible) .arrow {
     transform: translateX(3px);
     color: var(--background);
-    background: var(--accent);
+    background: var(--viewer-accent);
   }
-  :is(a, button):focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+  :is(a, button):focus-visible { outline: 2px solid var(--viewer-accent); outline-offset: 4px; }
   footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     min-height: 68px;
   }
-  .motion {
-    padding: 6px 0 6px 10px;
-    border: 0;
-    background: none;
-    cursor: pointer;
-  }
+  .motion { cursor: pointer; }
   @media (max-width: 640px) {
     .bar { min-height: 65px; }
     .brand { font-size: 17px; }
@@ -213,11 +229,31 @@
 <footer><button class="motion" type="button" hidden>Pause motion</button></footer>
 <script>
   const motionButton = document.querySelector('.motion');
+  const horizon = document.querySelector('.sky img');
   const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  let pointerFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+
+  function resetHorizon() {
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = 0;
+    horizon.style.removeProperty('--horizon-x');
+    horizon.style.removeProperty('--horizon-y');
+    horizon.style.removeProperty('--horizon-light');
+  }
+
+  function updateHorizon() {
+    pointerFrame = 0;
+    horizon.style.setProperty('--horizon-x', `${pointerX * -10}px`);
+    horizon.style.setProperty('--horizon-y', `${pointerY * -6}px`);
+    horizon.style.setProperty('--horizon-light', 1 + (pointerX + 1) * .045);
+  }
 
   function setMotion(playing) {
     document.body.dataset.motion = playing ? 'playing' : 'paused';
     motionButton.textContent = playing ? 'Pause motion' : 'Play motion';
+    if (!playing) resetHorizon();
   }
 
   setMotion(!motionPreference.matches);
@@ -226,6 +262,14 @@
     setMotion(document.body.dataset.motion !== 'playing');
   });
   motionPreference.addEventListener('change', event => setMotion(!event.matches));
+  window.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || document.body.dataset.motion !== 'playing') return;
+    pointerX = event.clientX / window.innerWidth * 2 - 1;
+    pointerY = event.clientY / window.innerHeight * 2 - 1;
+    if (!pointerFrame) pointerFrame = requestAnimationFrame(updateHorizon);
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', resetHorizon);
+  window.addEventListener('blur', resetHorizon);
 </script>
 </body>
 </html>
