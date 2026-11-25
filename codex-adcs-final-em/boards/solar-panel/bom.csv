@@ -1,0 +1,4 @@
+"Refs","Value","Footprint","Qty","DNP","MPN","Description"
+"D1,D2,D3,D4,D5,D6,D7","D_SCHOTTKY","Diode_SMD:Nexperia_CFP3_SOD-123W","7","","",""
+"J1","Conn_01x02_Pin","Connector_Molex:Molex_PicoBlade_53048-0210_1x02_P1.25mm_Horizontal","1","","","Generic connector, single row, 01x02, script generated"
+"PV1,PV2,PV3,PV4,PV5,PV6,PV7","SOLAR_CELL","SolarCell62x42footprint:SolarPanel_62x42_WGN62X42","7","","",""

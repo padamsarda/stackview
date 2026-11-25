@@ -1,0 +1,30 @@
+[
+ {
+  "branch": "main",
+  "slug": "main",
+  "commit": "0f4c99dd40059732c9a926c2ca68282e7d3db8d2",
+  "subject": "OBC: restore 27 Sep (64af42d) project files, keep flipped-U3 PCB",
+  "built": "2026-11-25T17:03:51+00:00"
+ },
+ {
+  "branch": "codex/adcs-final-em",
+  "slug": "codex-adcs-final-em",
+  "commit": "1afe46df44ba214d8019aeb7869aaf3240e8ec71",
+  "subject": "Panel and module sources synchronized with Stackview",
+  "built": "2026-11-04T12:42:58.220894+00:00"
+ },
+ {
+  "branch": "codex/beacon-four-layer-routing",
+  "slug": "codex-beacon-four-layer-routing",
+  "commit": "4066d4a64e447bdfc2039187cdc094e4a4882d94",
+  "subject": "Panel and module sources synchronized with Stackview",
+  "built": "2026-11-04T12:42:58.220894+00:00"
+ },
+ {
+  "branch": "codex/eps-beacon-4layer-t-magnetorquers",
+  "slug": "codex-eps-beacon-4layer-t-magnetorquers",
+  "commit": "88a2866ce2705a7d74748318d3e9a5580b1ca0c5",
+  "subject": "Updated PCB with flipped U3",
+  "built": "2026-11-25T16:38:18+00:00"
+ }
+]
